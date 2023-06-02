@@ -42,6 +42,15 @@ server.use("/", app);
     }
   });*/
 
+conn
+  .sync({ force: false })
+  .then(() => {
+    server.listen(PORT, () => {
+      console.log("Server connected");
+    });
+  })
+  .catch((error) => console.log(error));
+
 const allUsers = [];
 const allUsersChats = [];
 
@@ -165,15 +174,6 @@ conn
           allUsers.splice(WSuserId - 1, 1);
         }
       });
-    });
-  })
-  .catch((error) => console.log(error));
-
-conn
-  .sync({ force: false })
-  .then(() => {
-    server.listen(PORT, () => {
-      console.log("Server connected");
     });
   })
   .catch((error) => console.log(error));
