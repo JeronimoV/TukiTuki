@@ -2,6 +2,7 @@ var jwt = require("jsonwebtoken");
 require("dotenv").config();
 
 const createAccesToken = (user) => {
+  console.log(process.env.jwtSecret);
   return jwt.sign(user, process.env.jwtSecret);
 };
 

@@ -160,7 +160,6 @@ const loginUser = async (req, res) => {
         bcrypt.compare(password, actualUser.password, function (err, result) {
           if (err) {
             reject(err);
-            console.log("aki ta el error anashei");
           } else {
             resolve(result);
           }
