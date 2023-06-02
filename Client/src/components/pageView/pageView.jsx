@@ -59,7 +59,9 @@ const PageView = () => {
         }
     }
 
-    if(!userData){
+    console.log(userData);
+
+    if(userData === null){
         return <p>Loading...</p>
     }
 
