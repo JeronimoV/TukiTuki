@@ -46,7 +46,7 @@ const PageView = () => {
     }
 
     useEffect(() => {
-        if(userData !== undefined){
+        if(userData){
             localStorage.setItem("id", userData.dataToSend.id)
         }
     }, [userData])
