@@ -105,7 +105,7 @@ conn
       });
     });
 
-    ws.on("error", () => {
+    wsServer.on("error", () => {
       console.log("Oh no hermano, un error :o");
     });
   })

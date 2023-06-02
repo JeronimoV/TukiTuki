@@ -153,6 +153,7 @@ const logOutUser = (req, res) => {
 const loginUser = async (req, res) => {
   const { email, password } = req.body;
   try {
+    console.log(email, password);
     const actualUser = await User.findOne({ where: { email: email } });
     if (actualUser) {
       const comparePass = await new Promise((resolve, reject) => {

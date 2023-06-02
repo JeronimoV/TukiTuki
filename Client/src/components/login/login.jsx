@@ -44,6 +44,8 @@ const Login = () => {
         }
     }
 
+    console.log(loginData);
+
     const onSubmitLogin = async(e) => {
         window.localStorage.clear()
         e.preventDefault()
