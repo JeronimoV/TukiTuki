@@ -4,9 +4,22 @@ const fs = require("fs");
 const path = require("path");
 const { USER, PASSWORD, HOST, DATABASE, PORT } = process.env;
 
-const sequelize = new Sequelize(
-  "postgres://default:8atvpTXjy9hS@ep-small-wave-621632.us-east-1.postgres.vercel-storage.com:5432/verceldb"
-);
+const sequelize = new Sequelize({
+  dialect: "postgres",
+  host: "dpg-chrqrne4dadfn672g4vg-a.oregon-postgres.render.com",
+  port: 5432,
+  database: "tukituki_5eoj",
+  username: "tukituki",
+  password: "885BglMIbAKrsbF9bI5ys5LtBCbqMAjB",
+  ssl: true,
+  dialectOptions: {
+    ssl: {
+      require: true,
+      rejectUnauthorized: false,
+    },
+  },
+  logging: false,
+});
 
 const modelList = [];
 const pathModelsFiles = [];
