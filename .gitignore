@@ -23,10 +23,6 @@ dist-ssr
 *.sln
 *.sw?
 
-# dotenv environment variables file
-Api/.env
-Client/.env
-
 # package-lock.json
 Api/package-lock.json
 Client/package-lock.json
