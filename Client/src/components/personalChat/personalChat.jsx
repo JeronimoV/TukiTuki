@@ -14,7 +14,7 @@ const PersonalChat = ({chatId, userId}) => {
     const [messages, setMessages] = useState(null)
 
     const getChatMessages = async() => {
-        await fetch(`https://tukituki-backend.onrender.com/chat/message/${chatId}`)
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/chat/message/${chatId}`)
         .then(response => response.json())
         .then(response => setMessages(response))
     }
@@ -23,7 +23,7 @@ const PersonalChat = ({chatId, userId}) => {
 
 
     useEffect(() => {
-        const socket = new WebSocket("ws://tukituki-backend.onrender.com:3002")
+        const socket = new WebSocket("ws://tukituki-backend-2f9e.onrender.com:3002")
         setNewSocket(socket)
         if(messages !== null){
             socket.addEventListener("open", () => {

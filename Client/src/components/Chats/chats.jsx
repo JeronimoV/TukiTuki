@@ -10,13 +10,13 @@ const Chats = ({data}) => {
     const [allChats, setAllChats] = useState(null)
 
     const getAllChats = async () => {
-        await fetch(`https://tukituki-backend.onrender.com/chat/allchats/${data}`)
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/chat/allchats/${data}`)
         .then(response => response.json())
         .then(response => setAllChats(response))
     }
 
     useEffect(() => {
-        const socket = new WebSocket("ws://tukituki-backend.onrender.com:3003")
+        const socket = new WebSocket("ws://tukituki-backend-2f9e.onrender.com:3003")
         if(allChats !== null){
         socket.addEventListener("open", () => {
             let dataToSend = {

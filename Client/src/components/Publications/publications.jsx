@@ -44,7 +44,7 @@ const Publications = ({data}) => {
 
     const getComments = async () => {
         if(data){
-            await fetch("http://localhost:3001/comments/get", {
+            await fetch("https://tukituki-backend-2f9e.onrender.com/comments/get", {
                 method: "POST", // or 'PUT'
                 headers: {
                     "Content-Type": "application/json",
@@ -110,7 +110,7 @@ const Publications = ({data}) => {
                 : setReactionsAmount({...reactionsAmount, dislike: reactionsAmount.dislike + 1})
             }
         }
-        await fetch("http://localhost:3001/reactions/", {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/reactions/", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
@@ -122,7 +122,7 @@ const Publications = ({data}) => {
     const createComment = async (e) => {
         e.preventDefault()
         if(data)
-        await fetch("https://tukituki-backend.onrender.com/comments/", {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/comments/", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
@@ -157,7 +157,7 @@ const Publications = ({data}) => {
         }else{
             setIsFavorite(true)
         }
-        await fetch("https://tukituki-backend.onrender.com/favorites/", {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/favorites/", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",

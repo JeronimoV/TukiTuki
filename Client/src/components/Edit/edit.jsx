@@ -20,7 +20,7 @@ const Edit = () => {
     }, [id])
 
     const getUserData = async () => {
-        await fetch(`https://tukituki-backend.onrender.com/users/${id}`)
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/users/${id}`)
         .then(response => response.json())
         .then(response => setProfile(response))
     }
@@ -61,7 +61,7 @@ const Edit = () => {
 
     const handleSubmit = async(e) => {
         e.preventDefault()
-        await fetch(`http://localhost:3001/users/`, {
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/users/`, {
             method: "PUT", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",

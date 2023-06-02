@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const Chat = createApi({
   reducerPath: 'chat',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://tukituki-backend.onrender.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://tukituki-backend-2f9e.onrender.com' }),
   endpoints: (builder) => ({
     /*getUserId: builder.query({
       query: (id) => `/users`,

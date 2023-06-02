@@ -20,7 +20,7 @@ const Posts = ({data}) => {
 
     const makePost = async (e) => {
         e.preventDefault()
-        await fetch(`https://tukituki-backend.onrender.com/posts`, {
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/posts`, {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",

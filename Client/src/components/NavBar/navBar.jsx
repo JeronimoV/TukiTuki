@@ -22,7 +22,7 @@ const NavBar = () => {
   const [allNotifications, setAllNotifications] = useState(null)
 
   const getUserData = async () => {
-      await fetch(`https://tukituki-backend.onrender.com/users/id/${email}`)
+      await fetch(`https://tukituki-backend-2f9e.onrender.com/users/id/${email}`)
       .then(response => response.json())
       .then(response => {
           setId(response.dataToSend.id)
@@ -50,7 +50,7 @@ const NavBar = () => {
 
   const searchUser = async (e) => {
     e.preventDefault()
-    await fetch(`https://tukituki-backend.onrender.com/users/search/${searchInfo}`)
+    await fetch(`https://tukituki-backend-2f9e.onrender.com/users/search/${searchInfo}`)
     .then(response => response.json())
     .then(response => setSearchResults(response))
   }
@@ -65,7 +65,7 @@ const NavBar = () => {
   }
 
   const getNotifications = async () => {
-    await fetch(`https://tukituki-backend.onrender.com/friends/request/${id}`)
+    await fetch(`https://tukituki-backend-2f9e.onrender.com/friends/request/${id}`)
     .then(response => response.json())
     .then(response => setAllNotifications(response))
   }

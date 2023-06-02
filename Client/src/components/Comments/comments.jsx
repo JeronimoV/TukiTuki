@@ -10,7 +10,7 @@ const Comments = ({data}) => {
     const [userData, setUserData] = useState(null)
 
     const getUserData = async() => {
-        await fetch(`https://tukituki-backend.onrender.com/users/${data.UserId}`).then(response => response.json()).then(response => setUserData(response))
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/users/${data.UserId}`).then(response => response.json()).then(response => setUserData(response))
     }
 
     useEffect(() => {

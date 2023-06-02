@@ -2,7 +2,7 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 
 export const User = createApi({
   reducerPath: 'user',
-  baseQuery: fetchBaseQuery({ baseUrl: 'https://tukituki-backend.onrender.com' }),
+  baseQuery: fetchBaseQuery({ baseUrl: 'https://tukituki-backend-2f9e.onrender.com' }),
   endpoints: (builder) => ({
     getUserWithEmail: builder.query({
       query: (email) => `/users/id/${email}`,

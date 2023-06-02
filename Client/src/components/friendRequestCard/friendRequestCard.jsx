@@ -12,7 +12,7 @@ const FriendRequestCard = ({data, id}) => {
     
     const submitResponse = async (userResponse) => {
         dataToSend.response = userResponse
-        await fetch(`https://tukituki-backend.onrender.com/friends/response`, {
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/friends/response`, {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",

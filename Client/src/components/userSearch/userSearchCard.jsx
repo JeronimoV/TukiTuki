@@ -8,7 +8,7 @@ const UserSearchResult = ({data, id}) => {
     const [verifyFriendButton, setVerifyFriendButton] = useState(null)
 
     const sendFriendRequest = async() => {
-        await fetch("https://tukituki-backend.onrender.com/friends/send", {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/friends/send", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
@@ -23,7 +23,7 @@ const UserSearchResult = ({data, id}) => {
     }
 
     const verifyFriend = async () => {
-        await fetch("https://tukituki-backend.onrender.com/friends/verify", {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/friends/verify", {
             method: "POST", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",

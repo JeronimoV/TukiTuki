@@ -38,7 +38,7 @@ const PageView = () => {
     }, [email])
 
     const getUserData = async () => {
-        await fetch(`https://tukituki-backend.onrender.com/users/id/${email}`)
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/users/id/${email}`)
         .then(response => response.json())
         .then(response => {
             setUserData(response)
