@@ -16,7 +16,7 @@ const Chats = ({data}) => {
     }
 
     useEffect(() => {
-        const socket = new WebSocket("ws://localhost:3003")
+        const socket = new WebSocket("ws://tukituki-backend.onrender.com:3003")
         if(allChats !== null){
         socket.addEventListener("open", () => {
             let dataToSend = {
