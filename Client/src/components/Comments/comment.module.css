@@ -1,0 +1,26 @@
+.container{
+    background-color: #c4c4c4;
+    padding: 1vw;
+    border-radius: 0.2vw;
+    margin: 1vw;
+}
+
+.header{
+    display: flex;
+    align-items: center;
+    gap: 1vw;
+    margin-bottom: 1vw;
+}
+
+.picture{
+    height: 3vw;
+    width: 3vw;
+    border-radius: 9999999rem;
+}
+
+.comment{
+    background-color: white;
+    padding: 0.5vw;
+    padding-left: 1vw;
+    border-radius: 0.2vw;
+}

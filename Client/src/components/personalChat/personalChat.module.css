@@ -1,0 +1,148 @@
+.container{
+    width: 16vw;
+    height: 40vh;
+    max-height: 1000px;
+    border-radius: 0.2vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 4.5vw;
+    margin-bottom: 3vh;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.521);
+    transition: max-height 5s;
+}
+
+.containerOff{
+    background-color: #7b1579;
+    width: 16vw;
+    height: 40vw;
+    max-height: 0px;
+    border-radius: 0.2vw;
+    flex-direction: column;
+    align-items: center;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 4.5vw;
+    margin-bottom: 3vh;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.521);
+}
+
+.header{
+    margin: 0;
+    display: flex;
+    height: 4vw;
+    width: 100%;
+    background-color: #7b1579;
+    justify-content: center;
+    align-items: center;
+    gap: 5%;
+    box-shadow: 0px 5px 5px rgba(0, 0, 0, 0.356);
+}
+
+.image{
+    height: 3vw;
+    width: 3vw;
+    object-fit: cover;
+    border-radius: 9999999rem;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.521);
+}
+
+.friendName{
+    color: white;
+    font-weight:lighter;
+    font-size: 1.4vw;
+    display: block;
+    width: 10vw;
+    height: 2vw;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    max-height: 1vw;
+    line-height: 1vw;
+}
+
+.chat{
+    background-color: white;
+    margin: 1vw;
+    width: 14vw;
+    height: 24vh;
+    padding: 1vw;
+    overflow: auto;
+    font-size: 0.8vw;
+    display: flex;
+    flex-direction: column-reverse;
+    box-shadow: 0px 0px 10px black;
+}
+
+.friend{
+    width: fit-content;
+    text-align: left;
+    margin: 0;
+    margin-bottom: 2vw;
+    background-color: #7B157A;
+    color: white;
+    font-weight: lighter;
+    height: fit-content;
+    padding: 0.5vw;
+    border-radius: 0.3vw;
+}
+
+.user{
+    width: fit-content;
+    text-align: left;
+    margin: 0;
+    margin-bottom: 2vw;
+    background-color: #9e1426;
+    color: white;
+    font-weight: lighter;
+    height: fit-content;
+    padding: 0.5vw;
+    border-radius: 0.3vw;
+    margin-left: auto;
+}
+
+.him{
+    margin: 0;
+    padding: 0;
+    margin-left: 0.5vw;
+    margin-bottom: 0.5vw;
+}
+
+.you{
+    margin: 0;
+    padding: 0;
+    margin-right: 10vw;
+    margin-bottom: 0.5vw;
+    width: 11vw;
+    text-align: right;
+}
+
+.form{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 1vw;
+    background-color: #7b1579;
+    height: 3vw;
+}
+
+.input{
+    border-radius: 99999rem;
+    border: none;
+    box-shadow: 0px 0px 10px black;
+    height: 1.5vw;
+}
+
+.button{
+    box-shadow: 0px 0px 10px black;
+    border-radius: 99999rem;
+    border: none;
+    padding: 0.3vw;
+    background-color: #7b1579;
+    color: white;
+    height: 1.5vw;
+}

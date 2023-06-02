@@ -1,0 +1,129 @@
+.back{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.container{
+    position: absolute;
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.containerNoLogin{
+    position: absolute;
+    width: 30vw;
+    height: 30vw;
+    z-index: 10;
+    display: flex;
+    flex-direction:column;
+    justify-content: center;
+    align-items: center;
+}
+
+.containerNoLogin h3{
+    margin: 0;
+    font-size: 3vw;
+    color: white;
+    text-shadow: 0px 0px 10px black;
+}
+
+.containerNoLogin h1{
+    margin: 0;
+    font-size: 6vw;
+    color: #7B157A;
+    text-shadow: 0px 0px 2vw black;
+    font-weight: bold;
+}
+
+.containerNoLogin p{
+    color: white;
+    font-size: 0.9vw;
+    text-shadow: 0px 0px 2vw black;
+}
+
+.containerNoLogin button{
+    width: 50%;
+    height: 4vh;
+    border-radius: 0.4vw;
+    border: none;
+    background-color: #7B157A;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.container img{
+    width: 30vw;
+    height: 40vw;
+    object-fit: cover;
+    border-top-left-radius: 0.5vw;
+    border-bottom-left-radius: 0.5vw;
+}
+
+.formDiv{
+    width: 30vw;
+    height: 40vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-top-right-radius: 0.5vw;
+    border-bottom-right-radius: 0.5vw;
+    gap: 2%;
+}
+
+.formDiv h1{
+    color: #7B157A;
+    font-size: 4vw;
+}
+
+.formDiv form{
+    display: flex;
+    flex-direction: column;
+    gap: 1vw;
+}
+
+.input{
+    width: 20vw;
+    height: 2vw;
+    border-radius: 0.2vw;
+    border: none;
+    background-color: #D9D9D9;
+}
+
+.login{
+    width: 20vw;
+    height: 2vw;
+    border-radius: 0.2vw;
+    border: none;
+    color: white;
+    font-size: 1vw;
+    background-color: #7B157A;
+    cursor: pointer;
+}
+
+.registerButton{
+    background: none;
+    border: none;
+    cursor: pointer;
+}
+
+.videoDiv{
+    filter: blur(10px);
+    transform: scale(1.1);
+}
+
+.video{
+    height: 100vh;
+    width: 100vw;
+    object-fit: cover;
+    vertical-align:top;
+}

@@ -1,0 +1,252 @@
+.container{
+    width: 100vw;
+    height: 4vw;
+    background-color: #7B157A;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    z-index: 10;
+}
+
+.container h3{
+    margin-left: 5vw;
+    width: 10vw;
+    font-size: 2vw;
+    cursor: pointer;
+}
+
+.link{
+    text-decoration: none;
+    color: white;
+}
+
+.profile{
+    display: inline-block;
+    margin-right: 5vw;
+    background-color: white;
+    padding-left: 0.3vw;
+    padding-right: 1vw;
+    border-radius: 1vw;
+    width: 2.5vw;
+    height: 2.5vw;
+    position: absolute;
+    top: 0.6vw;
+    right: 8vw;
+    transition: height 1s, width 1s, display 1s ;
+    box-shadow: 0px 0px 10px black;
+}
+
+.buttonMenu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nickname{
+    visibility: hidden;
+    color: #7B157A;
+    font-weight: bold;
+    font-size: 0.8vw;
+    max-width: 0px;
+    width: 0px;
+    opacity: 0;
+    transition: width 1s, max-width 1s, opacity 1s, visibility 1s;
+}
+
+.profile img{
+    width: 2vw;
+    height: 2vw;
+    margin: auto;
+    margin-left: 0.8vw;
+    border-radius: 1vw;
+}
+
+.hiddenMenu{
+    padding: 0;
+    height: 100%;
+    max-height: 0px;
+    width: 100%;
+    overflow: hidden;
+    text-align: center;
+    opacity: 0;
+    transition:max-height 1s, opacity 1s ;
+    margin: 0;
+    color: #7b1579;
+}
+
+.hiddenMenu p{
+    margin: 0;
+    transition: 0.2s;
+    padding: 0.5vw;
+    display: block;
+    color: #7b1579;
+}
+
+.hiddenMenu div{
+    display: flex;
+    align-items: center;
+    transition: 0.2s;
+    margin-left: 0.5vw;
+}
+
+.hiddenMenu img{
+    height: 1vw;
+    width: 1vw;
+    margin-right: 0;
+}
+
+.hiddenMenu div:hover{
+    transform: scale(1.1);
+}
+
+.profile:hover > .hiddenMenu{
+    max-height: 8vw;
+    opacity: 1;
+}
+
+.profile:hover{
+    height: 11vw;
+    width: 11vw;
+}
+
+.profile:hover > .buttonMenu > .nickname{
+    max-width: 10vw;
+    width:10vw;
+    opacity: 1;
+    visibility:visible
+}
+
+.results{
+    position: fixed;
+    top: 6vw;
+    left: 30vw;
+    backdrop-filter: blur(2px);
+    background-color: #7b157950;
+    border-radius: 0.5vw;
+    padding-left: 5vw;
+    padding-right: 5vw;
+    text-decoration: none;
+    z-index: 10;
+}
+
+.closeButton{
+    position: absolute;
+    border: none;
+    border-radius: 0.5vw;
+    background-color: red;
+    color: white;
+    height: 2vw;
+    width: 2vw;
+    cursor: pointer;
+    top: 1.5vw;
+    right: 1.5vw;
+}
+
+.profileSend{
+    text-decoration: none;
+}
+
+.resultsTitle{
+    text-align: center;
+    color: white;
+    font-size: 2vw;
+}
+
+.searchBarContainer{
+    position: absolute;
+    display: flex;
+    align-items: center;
+    left: 37vw;
+}
+
+.searchBar{
+    height: 2vw;
+    width: 20vw;
+    border-top-left-radius: 99999rem;
+    border-bottom-left-radius: 99999rem;
+    padding: 1vw;
+    border: none;
+}
+
+.searchBarContainer button{
+    height: 2vw;
+    padding: 1vw;
+    border: none;
+    border-top-right-radius: 99999rem;
+    border-bottom-right-radius: 99999rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color:#D9D9D9;
+    color: #7b1579;
+    font-weight: bold;
+    font-size: 0.8vw;
+}
+
+.notification{
+    display: flex;
+    flex-direction: column;
+    background-color: white;
+    padding-left: 0.3vw;
+    padding-right: 1vw;
+    border-radius: 1vw;
+    width: 2.5vw;
+    height: 2.5vw;
+    position: absolute;
+    top: 0.6vw;
+    left: 88vw;
+    transition: height 1s, width 1s ;
+    box-shadow: 0px 0px 10px black;
+    overflow: hidden;
+}
+
+.header{
+    display: flex;
+    width: 100%;
+    height: 2.5vw;
+}
+
+.notificationTitle{
+    visibility: hidden;
+    opacity: 0;
+    color: #7b1579;
+    position: relative;
+    margin: auto;
+    max-width: 0px;
+    overflow: hidden;
+    transition: opacity 1s, visibility 1s, max-width 1s;
+}
+
+.notification:hover{
+    height: 11vw;
+    width: 11vw;
+    overflow-y: auto;
+}
+
+.notification:hover > .header > .notificationTitle{
+    opacity: 1;
+    visibility:visible;
+    max-width: 7vw;
+}
+
+.notificationImage{
+    width: 2vw;
+    height: 2vw;
+    border-radius: 1vw;
+    margin: auto;
+}
+
+.hiddenMenuNotification{
+    max-height: 0px;
+    max-width: 0px;
+    opacity: 0;
+    transition: max-height 1s, max-width 1s, opacity 1s;
+}
+
+.notification:hover > .hiddenMenuNotification{
+    max-height: 11vw;
+    max-width: 11vw;
+    opacity: 1;
+}

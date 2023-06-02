@@ -1,0 +1,57 @@
+.container{
+    background-color: white;
+    border-radius: 0.2vw;
+    height: 3vw;
+    width: 14vw;
+    margin-top: 1vw;
+    display: flex;
+    align-items: center;
+    transition: 0.1s;
+    padding: 0;
+}
+
+.image{
+    height: 2vw;
+    width: 2vw;
+    object-fit: cover;
+    margin-left: 0.5vw;
+    border-radius: 0.2vw;
+}
+
+.name{
+    font-size: 0.8vw;
+    display: block;
+    width: 10vw;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    max-height: 1vw;
+    line-height: 1vw;
+    text-align: center;
+    margin: 0;
+}
+
+.message{
+    display: block;
+    width: 10vw;
+    overflow: hidden;
+    word-wrap: break-word;
+    text-overflow: ellipsis;
+    max-height: 1vw;
+    line-height: 1vw;
+    text-align: center;
+    margin: 0;
+}
+
+.textContainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    margin-left: 0.5vw;
+}
+
+.container:hover{
+    transform: scale(1.02);
+}

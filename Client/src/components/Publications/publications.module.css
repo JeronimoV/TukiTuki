@@ -1,0 +1,152 @@
+.container{
+    background-color: #D9D9D9;
+    padding: 2vw;
+    min-height: 20vw;
+    height: fit-content;
+    width: 50vw;
+    border-radius: 0.2vw;
+    padding-bottom: 1vw;
+}
+
+.content{
+    background-color: #FFFFFF;
+    border-radius: 0.2vw;
+    padding:1vw;
+    margin-bottom: 1vw;
+    display: flex;
+    justify-content: left;
+    align-items: center;
+}
+
+.image{
+    height: 25vw;
+    width: 100%;
+    object-fit: contain;
+}
+
+.userImage{
+    height: 4vw;
+    width: 4vw;
+    object-fit: cover;
+    border-radius: 99999rem;
+}
+
+.header{
+    display: flex;
+    gap: 2%;
+    color: #7B157A;
+    margin-bottom: 1vw;
+}
+
+.reactions{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+    height: 2vw;
+    margin-top: 3vw;
+    margin-bottom: 2vw;
+    border-radius: 99999rem;
+    background-color: #7B157A;
+    color: white;
+    position: relative;
+}
+
+.reactions img{
+    width: 1vw;
+    height: 1vw;
+    object-fit: cover;
+    filter: brightness(0) invert(1);
+}
+
+.dislike{
+    transform: rotate(180deg);
+}
+
+.alignLogos{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.like div{
+    display: flex;
+    margin: 1vw;
+}
+
+.reactions div{
+    display: flex;
+    align-items: center;
+    gap: 4%;
+}
+
+.createComment{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.commentText{
+    width: 75%;
+    min-height: 2vw;
+    height: fit-content;
+    border-radius: 0.2vw;
+    border: none;
+}
+
+.inputCommentImage{
+    height: 1.2vw;
+    width: 1.2vw;
+    filter: brightness(0) invert(1);
+}
+
+.inputFileComment{
+    background-color: #7B157A;
+    color: white;
+    border-radius: 0.2vw;
+    height: 2vw;
+    width: 12vw;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.inputFileComment input{
+    display: none;
+}
+
+.commentButton{
+    background-color: #7B157A;
+    color: white;
+    border: none;
+    border-radius: 0.2vw;
+    height: 2vw;
+    width: 12vw;
+    cursor: pointer;
+}
+
+.buttonsContainer{
+    display: flex;
+    margin: 1vw;
+    gap: 1vw;
+}
+
+.commentActionButtonDiv{
+    display: flex;
+    justify-content: center;
+    margin: 2vw;
+    gap: 1vw;
+}
+
+.commentActionButton{
+    background-color: #7B157A;
+    border: none;
+    color: white;
+    height: 2vw;
+    width: 10vw;
+    border-radius: 0.2vw;
+    cursor: pointer;
+}

@@ -1,0 +1,73 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2vw;
+}
+
+.createPost{
+    width: 50vw;
+    background-color: #D9D9D9;
+    min-height: 7vw;
+    height: fit-content;
+    padding: 1vw;
+    border-radius: 0.5vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.textInput{
+    width: 48vw;
+    height: 3vw;
+    border: none;
+    border-radius: 0.5vw;
+    padding: 1vw;
+}
+
+.postButton{
+    margin-top: 1vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5vw;
+}
+
+.file{
+    display: none;
+}
+
+.fileButton{
+    background-color: #7b1579;
+    height: 2vw;
+    width: 10vw;
+    border-radius: 0.5vw;
+    font-size: 0.9vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 1vw;
+    padding-right: 1vw;
+    color: white;
+    cursor: pointer;
+}
+
+.ButtonForPost{
+    background-color: #7b1579;
+    height: 2vw;
+    width: 10vw;
+    border-radius: 0.5vw;
+    border: none;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}
+
+.inputImage{
+    height: 1.1vw;
+    filter: invert(100%);
+}

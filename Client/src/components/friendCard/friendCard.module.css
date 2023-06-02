@@ -1,0 +1,31 @@
+.container{
+    background-color: white;
+    border-radius: 0.2vw;
+    height: 3vw;
+    width: 14vw;
+    margin: 0.3vw;
+    display: flex;
+    align-items: center;
+    transition: 0.1s;
+}
+
+.image{
+    height: 2vw;
+    width: 2vw;
+    object-fit: cover;
+    margin-left: 0.5vw;
+    border-radius: 0.2vw;
+}
+
+.container h3{
+    margin: auto;
+}
+
+.container:hover{
+    transform: scale(1.1);
+}
+
+.link{
+    color: black;
+    text-decoration: none;
+}

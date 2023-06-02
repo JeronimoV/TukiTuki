@@ -1,0 +1,39 @@
+.container{
+    width: 30vw;
+    display: flex;
+    align-items: center;
+    background-color: #7b1579;
+    border-radius: 0.5vw;
+    z-index: 10;
+    margin-bottom: 1vw;
+}
+
+.image{
+    width: 7vw;
+    height: 7vw;
+    border-radius: 0.5vw;
+    margin: 0.5vw;
+}
+
+.data h3{
+    font-size: 1.8vw;
+    margin: 2.5vw;
+    color: white;
+}
+
+.button{
+    margin: 1vw;
+    border: none;
+    background-color: white;
+    color: #7b1579;
+    border-radius: 999999rem;
+    height: 2vw;
+    width: 2vw;
+    font-size: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    position: absolute;
+    right: 6vw;
+}
