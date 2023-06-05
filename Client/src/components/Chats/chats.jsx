@@ -4,6 +4,7 @@ import { useGetUserChatsQuery } from "@/globalRedux/features/querys/chatQuery"
 import ChatCard from "../chatsCards/chatCard"
 import styles from "./chats.module.css"
 import { useEffect, useState } from "react"
+import {io} from "socket.io-client"
 
 const Chats = ({data}) => {
 
@@ -16,16 +17,10 @@ const Chats = ({data}) => {
     }
 
     useEffect(() => {
-        const socket = new WebSocket("wss://tukituki-backend-2f9e.onrender.com/wsServer2")
+        const socket = io("https://tukituki-backend-2f9e.onrender.com")
+        socket.emit("user_connected", {id: data})
         if(allChats !== null){
-        socket.addEventListener("open", () => {
-            let dataToSend = {
-                id: data,
-            }
-            const info = JSON.stringify(dataToSend)
-            socket.send(info)
-        })
-        socket.addEventListener("message", (event) => {
+        socket.addEventListener("create_chat", (event) => {
             const chatsReponse = JSON.parse(event.data)
             console.log(chatsReponse);
             const oldChats = [...allChats]

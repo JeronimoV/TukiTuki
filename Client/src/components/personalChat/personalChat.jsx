@@ -2,6 +2,7 @@ import { useGetChatMessagesQuery } from "@/globalRedux/features/querys/chatQuery
 import styles from "./personalChat.module.css"
 import { useEffect, useState } from "react"
 import { useGetChatFriendInfoQuery } from "@/globalRedux/features/querys/chatQuery"
+import {io} from "socket.io-client"
 
 const PersonalChat = ({chatId, userId}) => {
     
@@ -23,15 +24,11 @@ const PersonalChat = ({chatId, userId}) => {
 
 
     useEffect(() => {
-        const socket = new WebSocket("wss://tukituki-backend-2f9e.onrender.com")
+        const socket = io("https://tukituki-backend-2f9e.onrender.com")
         setNewSocket(socket)
+        socket.emit("user_connected", {id: userId})
         if(messages !== null){
-            socket.addEventListener("open", () => {
-                const allData = {id: userId}
-                const toSend = JSON.stringify(allData)
-                socket.send(toSend)
-            })
-            socket.addEventListener("message", (event) => {
+            socket.addEventListener("send_message", (event) => {
                 let actualMessages = JSON.parse(event.data)
                 const oldMessage = [...messages]
                 oldMessage.unshift(actualMessages)
@@ -58,9 +55,7 @@ const PersonalChat = ({chatId, userId}) => {
             chatId: chatId,
             userId: userId
         }
-        
-        const chatInfo = JSON.stringify(dataToSend)
-        newSocket.send(chatInfo)
+        newSocket.emit("send_message", dataToSend)
         setUserMessage({
             message: ""
         })

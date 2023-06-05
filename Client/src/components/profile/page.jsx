@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import styles from "./profile.module.css"
 import Publications from "../Publications/publications";
 import { useEffect, useState } from "react";
+import {io} from "socket.io-client"
 
 const ProfileView = () => {
 
@@ -35,7 +36,8 @@ const ProfileView = () => {
     }, [userData])
 
     useEffect(() => {
-        const socket = new WebSocket("wss://tukituki-backend-2f9e.onrender.com/wsServer2")
+        const socket = io("https://tukituki-backend-2f9e.onrender.com")
+        socket.emit("user_connected", {id: id})
         setNewSocket(socket)
         socket.addEventListener("open", () => {
             let dataToSend = {
