@@ -5,7 +5,6 @@ const server = express();
 const cors = require("cors");
 const { Message, Chat, User } = require("./database");
 const { Op } = require("sequelize");
-const io = require("socket.io")(server);
 require("dotenv").config();
 const { PORT, PORTWS1, PORTWS2 } = process.env;
 
@@ -43,11 +42,13 @@ server.use("/", app);
   });*/
 
 conn.sync({ force: false }).then(() => {
-  server.listen(3000, () => {
+  const actualServer = server.listen(3000, () => {
     console.log("Server connected");
   });
   const allUsers = [];
   const allUsersChats = [];
+
+  const io = require("socket.io")(actualServer);
 
   // Manejar las conexiones entrantes y mensajes WebSocket
   io.on("connection", (socket) => {
