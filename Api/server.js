@@ -67,6 +67,7 @@ conn
 
         // modificar
         socket.on("create_chat", async (message) => {
+          console.log(message);
           const newMessage = await Message.create({
             ChatId: message.chatId,
             UserId: message.userId,
