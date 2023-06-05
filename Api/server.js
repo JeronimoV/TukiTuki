@@ -48,7 +48,9 @@ conn.sync({ force: false }).then(() => {
   const allUsers = [];
   const allUsersChats = [];
 
-  const io = require("socket.io")(actualServer);
+  const io = require("socket.io")(actualServer, {
+    cors: { origin: "*" },
+  });
 
   // Manejar las conexiones entrantes y mensajes WebSocket
   io.on("connection", (socket) => {
