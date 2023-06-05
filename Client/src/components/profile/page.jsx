@@ -39,13 +39,6 @@ const ProfileView = () => {
         const socket = io("https://tukituki-backend-2f9e.onrender.com")
         socket.emit("user_connected", {id: id})
         setNewSocket(socket)
-        socket.addEventListener("open", () => {
-            let dataToSend = {
-                id: id,
-            }
-            const info = JSON.stringify(dataToSend)
-            socket.send(info)
-        })
     },[])
 
     if(isLoading){
@@ -63,8 +56,7 @@ const ProfileView = () => {
             friendId: userData.id,
             getChats: true
         }
-        const sendThis = JSON.stringify(dataToSend)
-        newSocket.send(sendThis)
+        newSocket.emit("create_chat", dataToSend)
         router.push("home")
     }
 
