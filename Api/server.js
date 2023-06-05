@@ -57,7 +57,7 @@ const allUsersChats = [];
 conn
   .sync({ force: false })
   .then(() => {
-    const httpServer = server.listen(PORTWS1, () => {
+    const httpServer = server.listen(3001, () => {
       console.log("Server connected");
     });
 
@@ -114,7 +114,7 @@ conn
 conn
   .sync({ force: false })
   .then(() => {
-    const httpServer = server.listen(PORTWS2, () => {
+    const httpServer = server.listen(3002, () => {
       console.log("Server connected");
     });
 
