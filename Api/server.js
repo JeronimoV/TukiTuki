@@ -54,126 +54,112 @@ conn
 const allUsers = [];
 const allUsersChats = [];
 
-conn
-  .sync({ force: false })
-  .then(() => {
-    const httpServer = server.listen(3001, () => {
-      console.log("Server connected");
-    });
+const httpServer1 = server.listen(3001, () => {
+  console.log("Server connected");
+});
 
-    // Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
-    const wsServer = new WebSocketServer({ server: httpServer });
+// Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
+const wsServer1 = new WebSocketServer({ httpServer1 });
 
-    // Manejar las conexiones entrantes y mensajes WebSocket
-    wsServer.on("connection", (socket) => {
-      console.log("me inicie");
-      let WSuserId = null;
-      socket.on("message", async (message) => {
-        const actualInfo = JSON.parse(message.toString());
-        const userInfo = { socket: socket, id: actualInfo.id };
-        const coincidences = allUsers.find(
-          (value) => value.id === actualInfo.id
-        );
-        if (!coincidences) {
-          WSuserId = allUsers.push(userInfo);
-        }
-        if (actualInfo.chatId && !actualInfo.getChats) {
-          const newMessage = await Message.create({
-            ChatId: actualInfo.chatId,
-            UserId: actualInfo.userId,
-            message: actualInfo.message,
-          });
-
-          const toSend = JSON.stringify(newMessage);
-          let usersToSend = [];
-          let chat = await Chat.findOne({ where: { id: actualInfo.chatId } });
-          usersToSend.push(chat.UserId, chat.FriendId);
-          const usersSocket = allUsers.filter(
-            (value) =>
-              value.id === usersToSend[0] || value.id === usersToSend[1]
-          );
-          usersSocket.forEach((value) => value.socket.send(toSend));
-        }
+// Manejar las conexiones entrantes y mensajes WebSocket
+wsServer1.on("connection", (socket) => {
+  console.log("me inicie");
+  let WSuserId = null;
+  socket.on("message", async (message) => {
+    const actualInfo = JSON.parse(message.toString());
+    const userInfo = { socket: socket, id: actualInfo.id };
+    const coincidences = allUsers.find((value) => value.id === actualInfo.id);
+    if (!coincidences) {
+      WSuserId = allUsers.push(userInfo);
+    }
+    if (actualInfo.chatId && !actualInfo.getChats) {
+      const newMessage = await Message.create({
+        ChatId: actualInfo.chatId,
+        UserId: actualInfo.userId,
+        message: actualInfo.message,
       });
 
-      socket.on("close", () => {
-        console.log("Me cerre");
-        if (WSuserId !== null) {
-          console.log(WSuserId);
-          allUsers.splice(WSuserId - 1, 1);
-        }
-      });
-    });
+      const toSend = JSON.stringify(newMessage);
+      let usersToSend = [];
+      let chat = await Chat.findOne({ where: { id: actualInfo.chatId } });
+      usersToSend.push(chat.UserId, chat.FriendId);
+      const usersSocket = allUsers.filter(
+        (value) => value.id === usersToSend[0] || value.id === usersToSend[1]
+      );
+      usersSocket.forEach((value) => value.socket.send(toSend));
+    }
+  });
 
-    wsServer.on("error", () => {
-      console.log("Oh no hermano, un error :o");
-    });
-  })
-  .catch((error) => console.log(error));
+  socket.on("close", () => {
+    console.log("Me cerre");
+    if (WSuserId !== null) {
+      console.log(WSuserId);
+      allUsers.splice(WSuserId - 1, 1);
+    }
+  });
+});
 
-conn
-  .sync({ force: false })
-  .then(() => {
-    const httpServer = server.listen(3002, () => {
-      console.log("Server connected");
-    });
+wsServer1.on("error", () => {
+  console.log("Oh no hermano, un error :o");
+});
 
-    // Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
-    const wsServer = new WebSocketServer({ server: httpServer });
-    wsServer.on("connection", (socket) => {
-      console.log("me inicie");
-      let WSuserId = null;
-      socket.on("message", async (data) => {
-        const actualInfo = JSON.parse(data);
-        const userInfo = { socket: socket, id: actualInfo.id };
-        const coincidences = allUsersChats.find(
-          (value) => value.id === actualInfo.id
-        );
-        if (!coincidences) {
-          WSuserId = allUsersChats.push(userInfo);
-        }
-        if (actualInfo.getChats) {
-          const [actualUser, actualFriend, actualChat] = await Promise.all([
-            User.findOne({ where: { id: actualInfo.userId } }),
-            User.findOne({ where: { id: actualInfo.friendId } }),
-            Chat.findOne({
-              where: {
-                [Op.and]: [
-                  { FriendId: actualInfo.friendId },
-                  { UserId: actualInfo.userId },
-                ],
-              },
-            }),
-          ]);
+const httpServer = server.listen(3002, () => {
+  console.log("Server connected");
+});
 
-          let newChat = null;
+// Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
+const wsServer = new WebSocketServer({ httpServer });
+wsServer.on("connection", (socket) => {
+  console.log("me inicie");
+  let WSuserId = null;
+  socket.on("message", async (data) => {
+    const actualInfo = JSON.parse(data);
+    const userInfo = { socket: socket, id: actualInfo.id };
+    const coincidences = allUsersChats.find(
+      (value) => value.id === actualInfo.id
+    );
+    if (!coincidences) {
+      WSuserId = allUsersChats.push(userInfo);
+    }
+    if (actualInfo.getChats) {
+      const [actualUser, actualFriend, actualChat] = await Promise.all([
+        User.findOne({ where: { id: actualInfo.userId } }),
+        User.findOne({ where: { id: actualInfo.friendId } }),
+        Chat.findOne({
+          where: {
+            [Op.and]: [
+              { FriendId: actualInfo.friendId },
+              { UserId: actualInfo.userId },
+            ],
+          },
+        }),
+      ]);
 
-          if (!actualChat) {
-            newChat = await Chat.create({
-              UserId: actualUser.id,
-              FriendId: actualFriend.id,
-            });
-          } else {
-            newChat = actualChat;
-          }
+      let newChat = null;
 
-          const usersToSend = allUsersChats.filter(
-            (value) =>
-              value.id === actualUser.id || value.id === actualFriend.id
-          );
+      if (!actualChat) {
+        newChat = await Chat.create({
+          UserId: actualUser.id,
+          FriendId: actualFriend.id,
+        });
+      } else {
+        newChat = actualChat;
+      }
 
-          const serialize = JSON.stringify(newChat);
+      const usersToSend = allUsersChats.filter(
+        (value) => value.id === actualUser.id || value.id === actualFriend.id
+      );
 
-          usersToSend.forEach((value) => value.socket.send(serialize));
-        }
-      });
-      socket.on("close", () => {
-        console.log("Me cerre");
-        if (WSuserId !== null) {
-          console.log(WSuserId);
-          allUsers.splice(WSuserId - 1, 1);
-        }
-      });
-    });
-  })
-  .catch((error) => console.log(error));
+      const serialize = JSON.stringify(newChat);
+
+      usersToSend.forEach((value) => value.socket.send(serialize));
+    }
+  });
+  socket.on("close", () => {
+    console.log("Me cerre");
+    if (WSuserId !== null) {
+      console.log(WSuserId);
+      allUsers.splice(WSuserId - 1, 1);
+    }
+  });
+});
