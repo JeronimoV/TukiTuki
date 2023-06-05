@@ -110,13 +110,7 @@ conn
           newChat = actualChat;
         }
 
-        const usersToSend = allUsersChats.filter(
-          (value) => value.id === actualUser.id || value.id === actualFriend.id
-        );
-
-        usersToSend.forEach((value) =>
-          value.socket.emit("create_chat", newChat)
-        );
+        io.emit("create_chat", newChat);
       });
 
       socket.on("disconnect", () => {
