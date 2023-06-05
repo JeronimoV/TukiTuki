@@ -44,7 +44,7 @@ server.use("/", app);
 conn
   .sync({ force: false })
   .then(() => {
-    const actualServer = server.listen(3000, () => {
+    const actualServer = server.listen(PORT, () => {
       console.log("Server connected");
     });
     const allUsers = [];
@@ -80,7 +80,9 @@ conn
             (value) =>
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
-          usersSocket.forEach((value) => value.socket.emit(newMessage));
+          usersSocket.forEach((value) =>
+            value.socket.emit("send_message", newMessage)
+          );
         });
       });
       socket.on("create_chat", async (message) => {
@@ -112,7 +114,9 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        usersToSend.forEach((value) => value.socket.emit(newChat));
+        usersToSend.forEach((value) =>
+          value.socket.emit("create_chat", newChat)
+        );
       });
 
       socket.on("disconnect", () => {
