@@ -6,6 +6,8 @@ import styles from "./chats.module.css"
 import { useEffect, useState } from "react"
 import {io} from "socket.io-client"
 
+const socket = io("https://tukituki-backend-2f9e.onrender.com")
+
 const Chats = ({data}) => {
 
     const [allChats, setAllChats] = useState(null)
@@ -17,7 +19,6 @@ const Chats = ({data}) => {
     }
 
     useEffect(() => {
-        const socket = io("https://tukituki-backend-2f9e.onrender.com")
         console.log("SOY EL SOCKEEEEEEET", socket);
         socket.emit("user_connected", {id: data})
         socket.on("create_chat", (event) => {
