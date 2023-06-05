@@ -20,7 +20,7 @@ const Chats = ({data}) => {
         const socket = io("https://tukituki-backend-2f9e.onrender.com")
         socket.emit("user_connected", {id: data})
         if(allChats !== null){
-        socket.addEventListener("create_chat", (event) => {
+        socket.on("create_chat", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event.data);
             const oldChats = [...allChats]
             oldChats.unshift(event.data)

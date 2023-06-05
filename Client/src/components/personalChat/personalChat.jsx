@@ -28,7 +28,7 @@ const PersonalChat = ({chatId, userId}) => {
         setNewSocket(socket)
         socket.emit("user_connected", {id: userId})
         if(messages !== null){
-            socket.addEventListener("send_message", (event) => {
+            socket.on("send_message", (event) => {
                 let actualMessages = JSON.parse(event.data)
                 const oldMessage = [...messages]
                 oldMessage.unshift(actualMessages)
