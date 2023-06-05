@@ -54,12 +54,8 @@ conn
 const allUsers = [];
 const allUsersChats = [];
 
-const httpServer1 = server.listen(3001, () => {
-  console.log("Server connected");
-});
-
 // Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
-const wsServer1 = new WebSocketServer({ httpServer1 });
+const wsServer1 = new WebSocketServer({ port: 3001 });
 
 // Manejar las conexiones entrantes y mensajes WebSocket
 wsServer1.on("connection", (socket) => {
@@ -103,12 +99,8 @@ wsServer1.on("error", () => {
   console.log("Oh no hermano, un error :o");
 });
 
-const httpServer = server.listen(3002, () => {
-  console.log("Server connected");
-});
-
 // Crear una instancia de WebSocketServer y adjuntarla al servidor HTTP existente
-const wsServer = new WebSocketServer({ httpServer });
+const wsServer = new WebSocketServer({ port: 3002 });
 wsServer.on("connection", (socket) => {
   console.log("me inicie");
   let WSuserId = null;
