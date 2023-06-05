@@ -23,7 +23,7 @@ const PersonalChat = ({chatId, userId}) => {
 
 
     useEffect(() => {
-        const socket = new WebSocket("wss://tukituki-backend-2f9e.onrender.com:3001")
+        const socket = new WebSocket("wss://tukituki-backend-2f9e.onrender.com")
         setNewSocket(socket)
         if(messages !== null){
             socket.addEventListener("open", () => {
