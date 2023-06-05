@@ -66,8 +66,7 @@ conn
         }
 
         // modificar
-        socket.on("create_chat", async (message) => {
-          console.log(message);
+        socket.on("send_message", async (message) => {
           const newMessage = await Message.create({
             ChatId: message.chatId,
             UserId: message.userId,
@@ -84,7 +83,7 @@ conn
           usersSocket.forEach((value) => value.socket.emit(newMessage));
         });
       });
-      socket.on("send_message", async (message) => {
+      socket.on("create_chat", async (message) => {
         const [actualUser, actualFriend, actualChat] = await Promise.all([
           User.findOne({ where: { id: message.userId } }),
           User.findOne({ where: { id: message.friendId } }),
