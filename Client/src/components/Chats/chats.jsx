@@ -21,9 +21,9 @@ const Chats = ({data}) => {
         socket.emit("user_connected", {id: data})
         if(allChats !== null){
         socket.on("create_chat", (event) => {
-            console.log("SOY ESTEEEEEEEEEEEEEEEE",event.data);
+            console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
             const oldChats = [...allChats]
-            oldChats.unshift(event.data)
+            oldChats.unshift(event)
             setAllChats(oldChats)
         })
     }
