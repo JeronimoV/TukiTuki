@@ -48,7 +48,6 @@ conn
       console.log("Server connected");
     });
     const allUsers = [];
-    const allUsersChats = [];
 
     const io = require("socket.io")(actualServer, {
       cors: { origin: "*" },
@@ -125,6 +124,7 @@ conn
         if (WSuserId !== null) {
           console.log(WSuserId);
           allUsers.splice(WSuserId - 1, 1);
+          console.log(allUsers);
         }
       });
     });
