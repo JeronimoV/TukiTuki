@@ -41,6 +41,8 @@ const Chats = ({data}) => {
         )
     }
 
+    console.log("SOY TODOS LOS CHATS",allChats);
+
     return(
         <div className={styles.container}>
             {allChats && allChats.length > 0 ?
