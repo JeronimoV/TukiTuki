@@ -56,6 +56,7 @@ conn
 
     // Manejar las conexiones entrantes y mensajes WebSocket
     io.on("connection", (socket) => {
+      console.log("ALL USERS", allUsers);
       console.log("me inicie");
       let WSuserId = null;
       socket.on("user_connected", async (message) => {
