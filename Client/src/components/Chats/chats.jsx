@@ -24,6 +24,7 @@ const Chats = ({data}) => {
         })
         socket.on("create_chat", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
+            console.log("Entreeeeeeeee");
             if(allChats === null){
                 setAllChats([event])
             }else{
@@ -32,7 +33,11 @@ const Chats = ({data}) => {
                 setAllChats(oldChats)
             }
         })
-    },[allChats])
+        return () => {
+            socket.off("connect");
+            socket.off("create_chat");
+        };
+    },[])
 
     useEffect(() => {
         if(data){

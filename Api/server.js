@@ -13,34 +13,6 @@ server.use(cors());
 
 server.use("/", app);
 
-/* socket.on("chatUpdate", async (data) => {
-    const actualInfo = JSON.parse(data);
-    const userInfo = { socket: socket, id: actualInfo.id };
-    const coincidences = allUsers.find((value) => value.id === actualInfo.id);
-    if (!coincidences) {
-      WSuserId = allUsers.push(userInfo);
-    }
-    if (actualInfo.getChats) {
-      const [actualUser, actualFriend] = await Promise.all([
-        User.findOne({ where: { id: actualInfo.userId } }),
-        User.findOne({ where: { id: actualInfo.friendId } }),
-      ]);
-
-      const newChat = await Chat.create({
-        UserId: actualUser.id,
-        FriendId: actualFriend.id,
-      });
-
-      const usersToSend = allUsers.filter(
-        (value) => value.id === actualUser.id || value.id === actualFriend.id
-      );
-
-      const serialize = JSON.stringify(newChat);
-
-      usersToSend.forEach((value) => value.socket.send(serialize));
-    }
-  });*/
-
 conn
   .sync({ force: false })
   .then(() => {
@@ -114,10 +86,8 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        console.log("ESTO TENGO QUE MANDAR", newChat);
-
         usersToSend.forEach((value) =>
-          value.socket.emit("create_chat", newChat)
+          io.to(value.socket.id).emit("create_chat", newChat)
         );
       });
 
