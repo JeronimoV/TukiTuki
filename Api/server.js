@@ -54,7 +54,7 @@ conn
           );
           usersSocket.forEach((value) => {
             console.log("SOY EL VALUEE", value);
-            io.to(value.socket.id).emit("send_message", newMessage);
+            io.to(value.socket.id).emit("update_Message", newMessage);
           });
         });
       });
