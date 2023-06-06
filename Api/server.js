@@ -53,7 +53,7 @@ conn
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
           usersSocket.forEach((value) => {
-            console.log(value.socket.id);
+            console.log("SOY EL VALUEE", value);
             io.to(value.socket.id).emit("send_message", newMessage);
           });
         });

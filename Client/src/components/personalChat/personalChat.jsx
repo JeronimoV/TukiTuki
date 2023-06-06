@@ -29,13 +29,23 @@ const PersonalChat = ({chatId, userId}) => {
         socket.on("connect", () => {
             socket.emit("user_connected", {id: userId})
         })
-        if(messages !== null){
-            socket.on("send_message", (event) => {
+        socket.on("send_message", (event) => {
+            console.log("SOY EL MENSAJEEEEEEEEEEEEEE", event);
+            if(messages !== null){
                 let actualMessages = JSON.parse(event.data)
                 const oldMessage = [...messages]
                 oldMessage.unshift(actualMessages)
+                console.log("OLD MESSAGES", oldMessage);
                 setMessages(oldMessage)
-        })}
+            }else{
+                setMessages([event])
+            }
+        })
+
+        return () => {
+            socket.off("connect");
+            socket.off("send_message")
+        }
     }, [messages])
 
     useEffect(() => {
