@@ -22,7 +22,7 @@ const Chats = ({data}) => {
             socket.emit("user_connected", {id: data})
             console.log("SOY EL SOCKEEEEEEET", socket.connected);
         })
-        socket.on("create_chat", (event) => {
+        socket.on("update_chats", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
             console.log("Entreeeeeeeee");
             if(allChats === null){

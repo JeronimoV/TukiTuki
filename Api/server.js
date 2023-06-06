@@ -88,8 +88,7 @@ conn
         );
 
         usersToSend.forEach((value) => {
-          console.log(value.socket);
-          io.to(value.socket.id).emit("create_chat", newChat);
+          io.to(value.socket.id).emit("update_chats", newChat);
         });
       });
 
