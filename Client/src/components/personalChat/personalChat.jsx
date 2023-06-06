@@ -29,7 +29,7 @@ const PersonalChat = ({chatId, userId}) => {
             socket.emit("user_connected", {id: userId})
             setNewSocket(socket)
         })
-        socket.on("send_message", (event) => {
+        socket.on("update_Message", (event) => {
             console.log("SOY EL MENSAJEEEEEEEEEEEEEE", event);
             if(messages !== null){
                 let actualMessages = JSON.parse(event.data)
@@ -44,7 +44,7 @@ const PersonalChat = ({chatId, userId}) => {
 
         return () => {
             socket.off("connect");
-            socket.off("send_message")
+            socket.off("update_Message")
         }
     }, [])
 
