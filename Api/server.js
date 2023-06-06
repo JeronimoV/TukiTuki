@@ -53,7 +53,7 @@ conn
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
           usersSocket.forEach((value) =>
-            value.socket.emit("send_message", newMessage)
+            io.to(value.socket.id).emit("send_message", newMessage)
           );
         });
       });
@@ -86,10 +86,9 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        usersToSend.forEach((value) => {
-          console.log(value.socket.id);
-          io.to(value.socket.id).emit("create_chat", newChat);
-        });
+        usersToSend.forEach((value) =>
+          io.to(value.socket.id).emit("create_chat", newChat)
+        );
       });
 
       socket.on("disconnect", () => {
