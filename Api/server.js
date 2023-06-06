@@ -39,6 +39,8 @@ conn
 
         // modificar
         socket.on("send_message", async (message) => {
+          console.log("Este es el mensaje que llego", message);
+
           const newMessage = await Message.create({
             ChatId: message.chatId,
             UserId: message.userId,
@@ -48,12 +50,13 @@ conn
           let usersToSend = [];
           let chat = await Chat.findOne({ where: { id: message.chatId } });
           usersToSend.push(chat.UserId, chat.FriendId);
+
+          console.log("Este es el mensaje creado", newMessage);
           const usersSocket = allUsers.filter(
             (value) =>
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
           usersSocket.forEach((value) => {
-            console.log("SOY EL VALUEE", value.socket);
             io.to(value.socket.id).emit("update_Message", newMessage);
           });
         });

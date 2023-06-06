@@ -61,13 +61,12 @@ const PersonalChat = ({chatId, userId}) => {
     const sendMessage = (event) => {
         event.preventDefault()
         const messageToSend = userMessage.message
-        const dataToSend = {
+        newSocket.emit("send_message", {
             id: userId,
             message: messageToSend,
             chatId: chatId,
             userId: userId
-        }
-        newSocket.emit("send_message", dataToSend)
+        })
         setUserMessage({
             message: ""
         })
