@@ -18,8 +18,10 @@ const Chats = ({data}) => {
 
     useEffect(() => {
         const socket = io("https://tukituki-backend-2f9e.onrender.com")
-        console.log("SOY EL SOCKEEEEEEET", socket);
-        socket.emit("user_connected", {id: data})
+        console.log("SOY EL SOCKEEEEEEET", socket.connected);
+        socket.on("connect", () => {
+            socket.emit("user_connected", {id: data})
+        })
         socket.on("create_chat", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
             if(allChats === null){

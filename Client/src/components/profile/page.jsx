@@ -37,7 +37,9 @@ const ProfileView = () => {
 
     useEffect(() => {
         const socket = io("https://tukituki-backend-2f9e.onrender.com")
-        socket.emit("user_connected", {id: id})
+        socket.on("connect", () => {
+            socket.emit("user_connected", {id: id})
+        })
         setNewSocket(socket)
     },[id])
 

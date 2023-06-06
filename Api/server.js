@@ -114,9 +114,7 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        console.log("USUARIOS A ENVIAR", usersToSend);
-
-        console.log("SOY EL IOOOOOOOOOOOO", io);
+        console.log("ESTO TENGO QUE MANDAR", newChat);
 
         usersToSend.forEach((value) =>
           value.socket.emit("create_chat", newChat)

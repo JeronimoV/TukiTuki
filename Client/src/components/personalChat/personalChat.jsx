@@ -26,7 +26,9 @@ const PersonalChat = ({chatId, userId}) => {
     useEffect(() => {
         const socket = io("https://tukituki-backend-2f9e.onrender.com")
         setNewSocket(socket)
-        socket.emit("user_connected", {id: userId})
+        socket.on("connect", () => {
+            socket.emit("user_connected", {id: userId})
+        })
         if(messages !== null){
             socket.on("send_message", (event) => {
                 let actualMessages = JSON.parse(event.data)
