@@ -116,6 +116,8 @@ conn
 
         console.log("USUARIOS A ENVIAR", usersToSend);
 
+        console.log("SOY EL IOOOOOOOOOOOO", io);
+
         usersToSend.forEach((value) =>
           value.socket.emit("create_chat", newChat)
         );

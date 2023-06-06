@@ -23,14 +23,14 @@ const Chats = ({data}) => {
         socket.on("create_chat", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
             if(allChats === null){
-                setAllChats(event)
+                setAllChats([event])
             }else{
                 const oldChats = [...allChats]
                 oldChats.unshift(event)
                 setAllChats(oldChats)
             }
         })
-    },[allChats, data])
+    },[allChats])
 
     useEffect(() => {
         if(data){
@@ -43,8 +43,6 @@ const Chats = ({data}) => {
             <p>Loading...</p>
         )
     }
-
-    console.log("SOY TODOS LOS CHATS",allChats);
 
     return(
         <div className={styles.container}>
