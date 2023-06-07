@@ -37,7 +37,8 @@ conn
         const userInfo = { socket: socket.id, id: message.id };
         const coincidences = allUsers.find((value) => value.id === message.id);
         if (!coincidences) {
-          WSuserId = allUsers.push(userInfo);
+          allUsers.push(userInfo);
+          WSuserId = message.id;
         }
 
         // modificar
@@ -109,9 +110,10 @@ conn
       socket.on("disconnect", () => {
         console.log("Me cerre");
         if (WSuserId !== null) {
-          console.log(WSuserId);
-          allUsers.splice(WSuserId - 1, 1);
-          console.log(allUsers);
+          const filteredUsers = allUsers.filter(
+            (value) => value.id !== WSuserId
+          );
+          allUsers = filteredUsers;
         }
       });
     });
