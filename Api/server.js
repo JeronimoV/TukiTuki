@@ -31,6 +31,9 @@ conn
       console.log("me inicie");
       let WSuserId = null;
       socket.on("user_connected", async (message) => {
+        if (message.id === "6cad17e4-2ace-4b5e-b1d0-88ffb4f417d4") {
+          console.log("ES ESTE EL SOCKET QUE NO LLEGA", socket);
+        }
         const userInfo = { socket: socket.id, id: message.id };
         const coincidences = allUsers.find((value) => value.id === message.id);
         if (!coincidences) {
