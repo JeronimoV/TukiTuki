@@ -90,10 +90,7 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        usersToSend.forEach((value) => {
-          console.log("SOY EL VALUEEEEEEEE", value.socket);
-          io.to(value.socket).emit("update_chats", newChat);
-        });
+        io.emit("update_chats", newChat);
       });
 
       socket.on("disconnect", () => {
