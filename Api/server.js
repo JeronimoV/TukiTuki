@@ -89,6 +89,8 @@ conn
           newChat = actualChat;
         }
 
+        console.log("ESTE ES EL CHAAAAAT", newChat);
+
         const usersToSend = allUsers.filter(
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
