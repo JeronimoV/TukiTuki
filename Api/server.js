@@ -19,7 +19,7 @@ conn
     const actualServer = server.listen(PORT, () => {
       console.log("Server connected");
     });
-    const allUsers = [];
+    let allUsers = [];
 
     const io = require("socket.io")(actualServer, {
       cors: { origin: "*" },
