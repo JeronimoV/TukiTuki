@@ -31,7 +31,7 @@ conn
       console.log("me inicie");
       let WSuserId = null;
       socket.on("user_connected", async (message) => {
-        const userInfo = { socket: socket.id, id: message.id };
+        const userInfo = { socket: socket, id: message.id };
         const coincidences = allUsers.find((value) => value.id === message.id);
         if (!coincidences) {
           WSuserId = allUsers.push(userInfo);
@@ -90,7 +90,10 @@ conn
           (value) => value.id === actualUser.id || value.id === actualFriend.id
         );
 
-        io.emit("update_chats", newChat);
+        usersToSend.forEach((value) => {
+          console.log("SOY EL VALUEEEEEEEE", value.socket);
+          value.socket.emit("update_chats", newChat);
+        });
       });
 
       socket.on("disconnect", () => {
