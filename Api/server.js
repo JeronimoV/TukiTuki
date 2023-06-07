@@ -31,7 +31,7 @@ conn
       console.log("me inicie");
       let WSuserId = null;
       socket.on("user_connected", async (message) => {
-        const userInfo = { socket: socket, id: message.id };
+        const userInfo = { socket: socket.id, id: message.id };
         const coincidences = allUsers.find((value) => value.id === message.id);
         if (!coincidences) {
           WSuserId = allUsers.push(userInfo);
@@ -57,7 +57,7 @@ conn
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
           usersSocket.forEach((value) => {
-            io.to(value.socket.id).emit("update_Message", newMessage);
+            io.to(value.socket).emit("update_Message", newMessage);
           });
         });
       });
@@ -92,7 +92,7 @@ conn
 
         usersToSend.forEach((value) => {
           console.log("SOY EL VALUEEEEEEEE", value.socket);
-          io.to(value.socket.id).emit("update_chats", newChat);
+          io.to(value.socket).emit("update_chats", newChat);
         });
       });
 
