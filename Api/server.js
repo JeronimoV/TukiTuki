@@ -55,11 +55,16 @@ conn
           let chat = await Chat.findOne({ where: { id: message.chatId } });
           usersToSend.push(chat.UserId, chat.FriendId);
 
+          console.log("USUARIOS A MANDAR", usersToSend);
+
           console.log("Este es el mensaje creado", newMessage);
           const usersSocket = allUsers.filter(
             (value) =>
               value.id === usersToSend[0] || value.id === usersToSend[1]
           );
+
+          console.log("USUARIO SOCKETS", usersSocket);
+
           usersSocket.forEach((value) => {
             io.to(value.socket).emit("update_Message", newMessage);
           });
