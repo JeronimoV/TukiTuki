@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import PersonalChat from "../personalChat/personalChat"
 import { useSelector } from "react-redux"
 import { chatSlices } from "@/globalRedux/features/slices/chatsSices"
+import {io} from "socket.io-client"
 
 const PageView = () => {
 
@@ -18,6 +19,8 @@ const PageView = () => {
     const [email, setEmail] = useState(null)
 
     const [userData, setUserData] = useState(null)
+
+    const [actualSocket, setActualSocket] = useState(null)
 
     const actualChatId = useSelector(value => value.saveChat.chatId)
     const chatStatus = useSelector(value => value.saveChat.chatStatus)
@@ -48,6 +51,15 @@ const PageView = () => {
     useEffect(() => {
         if(userData && userData.dataToSend){
             localStorage.setItem("id", userData.dataToSend.id)
+            const socket = io("https://tukituki-backend-2f9e.onrender.com")
+            setActualSocket(socket)
+            socket.on("connect", () => {
+                socket.emit("user_connected", {id: userData.dataToSend.id})
+                console.log("SOY EL SOCKEEEEEEET", socket.connected);
+        })
+        return () =>{
+            socket.off("connect")
+        }
         }
     }, [userData])
 
@@ -61,16 +73,19 @@ const PageView = () => {
 
     console.log(userData);
 
-    if(userData === null){
+    if(!userData){
+        return <p>Loading...</p>
+    }
+    if(!actualSocket){
         return <p>Loading...</p>
     }
 
     return(
         <div className={styles.container}>
             <div className={styles.chat}>
-                {showChats ? <Chats data={userData.dataToSend.id}/> : null}
+                {showChats ? <Chats data={userData.dataToSend.id} socket={actualSocket}/> : null}
                 {chatId === 0 || !chatId ? null :
-                    <PersonalChat chatId={chatId} userId={userData.dataToSend.id}/>
+                    <PersonalChat chatId={chatId} userId={userData.dataToSend.id} socket={actualSocket}/>
                 }  
             </div>
             <div className={styles.chatButton} onClick={toggleChat}>

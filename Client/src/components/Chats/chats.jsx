@@ -4,9 +4,8 @@ import { useGetUserChatsQuery } from "@/globalRedux/features/querys/chatQuery"
 import ChatCard from "../chatsCards/chatCard"
 import styles from "./chats.module.css"
 import { useEffect, useState } from "react"
-import {io} from "socket.io-client"
 
-const Chats = ({data}) => {
+const Chats = ({data, socket}) => {
 
     const [allChats, setAllChats] = useState(null)
 
@@ -17,11 +16,6 @@ const Chats = ({data}) => {
     }
 
     useEffect(() => {
-        const socket = io("https://tukituki-backend-2f9e.onrender.com")
-        socket.on("connect", () => {
-            socket.emit("user_connected", {id: data})
-            console.log("SOY EL SOCKEEEEEEET", socket.connected);
-        })
         socket.on("update_chats", (event) => {
             console.log("SOY ESTEEEEEEEEEEEEEEEE",event);
             console.log("Entreeeeeeeee");
@@ -34,8 +28,7 @@ const Chats = ({data}) => {
             }
         })
         return () => {
-            socket.off("user_connected");
-            socket.off("create_chat");
+            socket.off("update_chats");
         };
     },[])
 

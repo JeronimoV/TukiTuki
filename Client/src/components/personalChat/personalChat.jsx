@@ -4,13 +4,11 @@ import { useEffect, useState } from "react"
 import { useGetChatFriendInfoQuery } from "@/globalRedux/features/querys/chatQuery"
 import {io} from "socket.io-client"
 
-const PersonalChat = ({chatId, userId}) => {
+const PersonalChat = ({chatId, userId, socket}) => {
     
     const [userMessage, setUserMessage] = useState({
         message: ""
     })
-    
-    const [newSocket, setNewSocket] = useState(null)
     
     const [messages, setMessages] = useState(null)
 
@@ -24,15 +22,21 @@ const PersonalChat = ({chatId, userId}) => {
 
 
     useEffect(() => {
-        const socket = io("https://tukituki-backend-2f9e.onrender.com")
-        socket.on("connect", () => {
-            socket.emit("user_connected", {id: userId})
-            setNewSocket(socket)
-        })
         socket.on("update_message", (event) => {
-            console.log("SOY EL MENSAJEEEEEEEEEEEEEE");
+            console.log("SOY EL MENSAJEEEEEEEEEEEEEE", messages);
+            if(messages !== null){
+                const oldMessage = [...messages]
+                oldMessage.unshift(event)
+                console.log("OLD MESSAGES", oldMessage);
+                setMessages(oldMessage)
+            }else{
+                setMessages([event])
+            }
         })
-    }, [])
+        return () => {
+            socket.off("update_message");
+        };
+    }, [messages])
 
     useEffect(() => {
         if(chatId){
@@ -41,13 +45,10 @@ const PersonalChat = ({chatId, userId}) => {
         }
     }, [chatId])
 
-    console.log(messages);
-    console.log(chatId);
-
     const sendMessage = (event) => {
         event.preventDefault()
         const messageToSend = userMessage.message
-        newSocket.emit("send_message", {
+        socket.emit("send_message", {
             id: userId,
             message: messageToSend,
             chatId: chatId,
@@ -96,7 +97,7 @@ const PersonalChat = ({chatId, userId}) => {
                                     <p className={styles.him}>Him</p>
                                     <p className={styles.friend}>{value.message}</p>
                                 </div>)
-                            ): null
+                            ): <p>There is nothing to see!</p>
                         }
                 </div>
                 <form className={styles.form} onSubmit={sendMessage}>
