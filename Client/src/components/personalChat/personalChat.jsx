@@ -97,7 +97,7 @@ const PersonalChat = ({chatId, userId, socket}) => {
                                     <p className={styles.him}>Him</p>
                                     <p className={styles.friend}>{value.message}</p>
                                 </div>)
-                            ): <p>There is nothing to see!</p>
+                            ): null
                         }
                 </div>
                 <form className={styles.form} onSubmit={sendMessage}>
