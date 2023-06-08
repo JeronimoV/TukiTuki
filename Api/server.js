@@ -66,7 +66,8 @@ conn
           console.log("USUARIO SOCKETS", usersSocket);
 
           usersSocket.forEach((value) => {
-            io.to(value.socket).emit("update_Message", newMessage);
+            console.log("SOY EL SOCKET", value);
+            io.to(value.socket).emit("update_message", newMessage);
           });
         });
       });
