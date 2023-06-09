@@ -352,6 +352,7 @@ module.exports = {
   getUserIdWithEmail,
   getOneUser,
   getUserProfile,
+  getUserReactions,
   logOutUser,
   isUserLogged,
   createUser,
