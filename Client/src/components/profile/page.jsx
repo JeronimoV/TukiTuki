@@ -68,7 +68,7 @@ const ProfileView = () => {
         <div className={styles.container}>
             <div className={styles.info}>
                 <img className={styles.image} src={userData.picture}/>
-                <img className={styles.profileBack} src="https://marketplace.canva.com/EAE78ThN5EM/1/0/1600w/canva-portada-para-facebook-con-frase-y-flores-ilustrado-en-acuarela-rosa-b4pj4Tt19Vo.jpg"/>
+                <img className={styles.profileBack} src={userData.coverPhoto}/>
                 <div className={styles.userData}>
                     <h3 className={styles.name}>{userData.nickname}</h3>
                     <p className={styles.description}>{userData.description ? userData.description : "User doesnt have a description"}</p>
@@ -88,7 +88,7 @@ const ProfileView = () => {
                         <Publications data={value}/>
                     )}
                 </div> : null}
-            <img className={styles.backgroundProfile} src="https://images.pexels.com/photos/3165335/pexels-photo-3165335.jpeg?cs=srgb&dl=pexels-lucie-liz-3165335.jpg&fm=jpg"/>
+            <img className={styles.backgroundProfile} src={userData.backgroundPicture}/>
         </div>
     )
 }

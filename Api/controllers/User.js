@@ -87,6 +87,8 @@ const getUserProfile = async (req, res) => {
       email: actualUser.email,
       nickname: actualUser.nickname,
       picture: actualUser.picture,
+      backgroundPicture: actualUser.backgroundPicture,
+      coverPhoto: actualUser.coverPhoto,
       description: actualUser.description,
       friends: allFriends,
       posts: allPosts,
