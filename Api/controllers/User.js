@@ -143,8 +143,8 @@ const getUserReactions = async (req, res) => {
 
     const dataToSend = [];
 
-    for (let i = 0; allReactions.length < i; i++) {
-      for (let j = 1; allReactions.length < j; j++) {
+    for (let i = 0; allReactions.length > i; i++) {
+      for (let j = 1; allReactions.length > j; j++) {
         if (allReactions[i].PostId === allReactionsPosts[j].id) {
           dataToSend.push({
             reaction: allReactions[i],

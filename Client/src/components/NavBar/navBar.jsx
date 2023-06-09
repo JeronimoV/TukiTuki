@@ -120,10 +120,12 @@ const NavBar = () => {
                     <p>Configuration</p>
                 </div>
               </Link>
+              <Link className={styles.link} href={`home/reactions`}>
                 <div>
                     <img src="https://www.svgrepo.com/show/376788/bookmark.svg"/>
                     <p>My Reactions</p>
                 </div>
+              </Link>
                 <div onClick={logOut}>
                     <img src="https://www.svgrepo.com/show/376950/logout.svg"/>
                     <p>LogOut</p>
