@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import styles from "./edit.module.css"
 import swal from "sweetalert"
 import { storage } from "@/utils/firebase"
-import {ref, uploadBytes, getDownloadURL} from "firebase/storage"
+import {ref, uploadBytes, getDownloadURL } from "firebase/storage"
 import { v4 } from "uuid"
 
 const Edit = () => {
@@ -25,29 +25,27 @@ const Edit = () => {
         .then(response => setProfile(response))
     }
 
-    const [profile, setProfile] = useState({
-        id: "",
-        picture: "",
-        backgroundPicture: "",
-        coverPhoto: "",
-        nickname: "",
-        email: "",
-        description: "",
-    })
+    const [profile, setProfile] = useState(null)
 
-    const [images, setImages] = useState({
-        picture: "",
-        backgroundPicture: "",
-        coverPhoto: ""
-    })
+    const [images, setImages] = useState(null)
+
+    useEffect(() => {
+        if(profile && images === null){
+            setImages({
+                picture: profile?.picture,
+                backgroundPicture: profile?.backgroundPicture,
+                coverPhoto: profile?.coverPhoto
+            })
+        }
+    }, [profile])
 
 
-    const uploadImage = (e) => {
+    const uploadImage = async (e) => {
         console.log(e.target.files[0]);
-        const fileName = e.target.files[0].name.split(".")
-        const imageRef = ref(storage, `profile/pictures/${fileName[0] + v4()}`)
-        uploadBytes(imageRef, fileName).then(() => {
-            setImages({...images, picture: getDownloadURL()})
+        const fileName = e.target.files[0]
+        const imageRef = ref(storage, `profile/${e.target.name}/${fileName.name + v4()}`)
+        await uploadBytes(imageRef, fileName).then(async (snapshot) => {
+            await getDownloadURL(snapshot.ref).then(response => setImages({...images, [e.target.name]: response}))
         })
     }
 
@@ -59,15 +57,28 @@ const Edit = () => {
         setProfile({...profile, [e.target.name]: e.target.value})
     }
 
+    const handleImage = (e) => {
+        setImages({...images, [e.target.name]: e.target.value})
+    }
+
     const handleSubmit = async(e) => {
         e.preventDefault()
+        const allTheData = {
+            nickname: profile.nickname,
+            email:  profile.email,
+            description: profile.description,
+            picture: images.picture,
+            backgroundPicture: images.backgroundPicture,
+            coverPhoto: images.coverPhoto
+        }
         await fetch(`https://tukituki-backend-2f9e.onrender.com/users/`, {
             method: "PUT", // or 'PUT'
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(profile),
+            body: JSON.stringify(allTheData),
         }).then(async() => {
+            localStorage.setItem("email", profile.email)
             await swal({
                 title: "User data updated!",
                 text: "The data was updated with success!",
@@ -82,7 +93,13 @@ const Edit = () => {
         })
     }
 
-    if(userData === null){
+    console.log("SOY LAS IMAGENES",images);
+
+    if(profile === null){
+        return <p>Loading...</p>
+    }
+
+    if(images === null){
         return <p>Loading...</p>
     }
 
@@ -95,30 +112,30 @@ const Edit = () => {
                         <label>
                             <p>Profile Picture</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} placeholder={userData.picture} type="text" />
+                                <input className={styles.input} name="picture" onChange={handleImage} placeholder={profile.picture} type="text" />
                                 <label className={styles.imagesFiles}>
                                     Select a file
-                                    <input className={styles.fileInput} onChange={uploadImage} placeholder={userData.picture} type="file" />
+                                    <input className={styles.fileInput} name="picture" onChange={uploadImage} placeholder={profile.picture} type="file" />
                                 </label>
                             </div>
                         </label>
                         <label>
                             <p>Background Picture</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} placeholder="Background picture" type="text" />
+                                <input className={styles.input} name="backgroundPicture" onChange={handleImage} placeholder={profile.backgroundPicture} type="text" />
                                 <label className={styles.imagesFiles}>
                                     Select a file
-                                    <input className={styles.fileInput} placeholder="Background picture" type="file" />
+                                    <input className={styles.fileInput} name="backgroundPicture" onChange={uploadImage} placeholder="Background picture" type="file" />
                                 </label>
                             </div>
                         </label>
                         <label>
                             <p>Cover Photo</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} placeholder="Cover Photo" type="text" />
+                                <input className={styles.input} name="coverPhoto" onChange={handleImage} placeholder={profile.coverPhoto} type="text" />
                                 <label className={styles.imagesFiles}>
                                     Select a file
-                                    <input className={styles.fileInput} placeholder="Cover Photo" type="file" />
+                                    <input className={styles.fileInput} name="coverPhoto" onChange={uploadImage} placeholder="Cover Photo" type="file" />
                                 </label>
                             </div>
                         </label>
@@ -128,35 +145,35 @@ const Edit = () => {
                         <label>
                             <p>Nickname</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} maxLength={13} onChange={handleInput} name="nickname" value={profile.nickname} placeholder={userData.nickname} type="text" />
+                                <input className={styles.input} maxLength={13} onChange={handleInput} name="nickname" value={profile.nickname} placeholder={profile.nickname} type="text" />
                             </div>
                         </label>
                         <label>
                             <p>Email</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} onChange={handleInput} name="email" value={profile.email} placeholder={userData.email} type="text" />
+                                <input className={styles.input} onChange={handleInput} name="email" value={profile.email} placeholder={profile.email} type="text" />
                             </div>
                         </label>
                         <label>    
                             <p>Description</p>
                             <div className={styles.allInputs}>
-                                <input className={styles.input} onChange={handleInput} name="description" value={profile.description} placeholder={userData.description === null ? "You dont have a description" : userData.description} type="text" />
+                                <input className={styles.input} onChange={handleInput} name="description" value={profile.description} placeholder={profile.description === null ? "You dont have a description" : profile.description} type="text" />
                             </div>
                         </label>
                     </label>
-                    <button className={styles.button}>Confirm</button>
+                    <button className={styles.button} type="submit">Confirm</button>
                 </form>
             </div>
             <div className={styles.profile}>
                 <div className={styles.profileFront}>
-                    <img className={styles.profilePicture} src={profile.picture}/>
-                    <img className={styles.profileCover} src={profile.coverPhoto}/>
+                    <img className={styles.profilePicture} src={images.picture}/>
+                    <img className={styles.profileCover} src={images.coverPhoto}/>
                     <div className={styles.profileData}>
                         <p className={styles.nickname}>{profile.nickname}</p>
                         <p className={styles.description}>{profile.description}</p>
                     </div>
                 </div>
-                <img className={styles.background} src={profile.backgroundPicture}/>
+                <img className={styles.background} src={images.backgroundPicture}/>
             </div>
         </div>
     )

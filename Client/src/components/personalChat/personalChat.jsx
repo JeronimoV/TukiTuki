@@ -2,7 +2,6 @@ import { useGetChatMessagesQuery } from "@/globalRedux/features/querys/chatQuery
 import styles from "./personalChat.module.css"
 import { useEffect, useState } from "react"
 import { useGetChatFriendInfoQuery } from "@/globalRedux/features/querys/chatQuery"
-import {io} from "socket.io-client"
 
 const PersonalChat = ({chatId, userId, socket}) => {
     

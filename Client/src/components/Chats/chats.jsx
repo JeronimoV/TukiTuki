@@ -47,7 +47,7 @@ const Chats = ({data, socket}) => {
     return(
         <div className={styles.container}>
             {allChats && allChats.length > 0 ?
-                allChats.map(value => <ChatCard data={value} userId={data}/>)
+                allChats.map(value => <ChatCard data={value} userId={data} socket={socket}/>)
                 : <div className={styles.errorDiv}><h3 className={styles.errorTitle}>Oops</h3><p className={styles.error}>You dont have chats!</p></div>
             }
         </div>

@@ -6,7 +6,9 @@ import { useDispatch, useSelector } from "react-redux"
 import { saveChatId } from "@/globalRedux/features/slices/chatsSices"
 import { useState, useEffect } from "react"
 
-const ChatCard = ({data, userId}) => {
+const ChatCard = ({data, userId, socket}) => {
+
+    const [adCounter, setAdCounter] = useState(0)
 
     const dispatch = useDispatch()
 

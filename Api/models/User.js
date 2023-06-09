@@ -28,6 +28,12 @@ module.exports = (sequelize) => {
     picture: {
       type: DataTypes.TEXT(),
     },
+    backgroundPicture: {
+      type: DataTypes.TEXT(),
+    },
+    coverPhoto: {
+      type: DataTypes.TEXT(),
+    },
     age: {
       type: DataTypes.STRING(),
       allowNull: false,

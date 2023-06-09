@@ -113,6 +113,8 @@ const getOneUser = async (req, res) => {
       picture: actualUser.picture,
       friends: actualFriends,
       description: actualUser.description,
+      backgroundPicture: actualUser.backgroundPicture,
+      coverPhoto: actualUser.coverPhoto,
     };
     res.status(200).json(dataToSend);
   } catch (error) {
@@ -210,6 +212,10 @@ const createUser = async (req, res) => {
       nickname: nickName,
       picture:
         "https://static.vecteezy.com/system/resources/previews/005/544/718/original/profile-icon-design-free-vector.jpg",
+      backgroundPicture:
+        "https://steamuserimages-a.akamaihd.net/ugc/856104292500994306/7766E6F16031671F6F1049919D0A28AA8E6B9599/",
+      coverPhoto:
+        "https://images.unsplash.com/photo-1504805572947-34fad45aed93?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y292ZXIlMjBwaG90b3xlbnwwfHwwfHx8MA%3D%3D&w=1000&q=80",
     });
 
     if (!newUser) throw new Error("Failed to create");
@@ -236,6 +242,8 @@ const updateUser = async (req, res) => {
     age,
     country,
     description,
+    backgroundPicture,
+    coverPhoto,
   } = req.body;
   try {
     if (
@@ -267,6 +275,8 @@ const updateUser = async (req, res) => {
       picture: picture,
       country: country,
       description: description,
+      backgroundPicture: backgroundPicture,
+      coverPhoto: coverPhoto,
     });
 
     res.status(200).json("User updated!");

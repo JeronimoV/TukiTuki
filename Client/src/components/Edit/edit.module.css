@@ -126,6 +126,7 @@
     top: 10vw;
     left: 15vw;
     right: 15vw;
+    object-fit: cover;
 }
 
 .profileCover{
@@ -137,6 +138,8 @@
     justify-content: center;
     align-items: center;
     margin: 1vw;
+    object-fit: cover;
+    background-color: white;
 }
 
 .profileFront{

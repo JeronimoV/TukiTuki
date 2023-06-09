@@ -25,14 +25,22 @@ const NavBar = () => {
       await fetch(`https://tukituki-backend-2f9e.onrender.com/users/id/${email}`)
       .then(response => response.json())
       .then(response => {
-          setId(response.dataToSend.id)
-          setUserdata(response.dataToSend)
+        setUserdata(response.dataToSend)
+        setId(response.dataToSend.id)
       })
-  }
+    }
+    
+    const path = usePathname();
+
+    let actualEmail = localStorage.getItem("email")
 
   useEffect(() => {
-    setEmail(localStorage.getItem("email"))
-  },[])
+    console.log(actualEmail);
+    if(actualEmail){
+      console.log("Entre", actualEmail);
+      setEmail(actualEmail)
+    }
+  },[actualEmail])
 
   useEffect(() => {
     if(email){
@@ -45,8 +53,6 @@ const NavBar = () => {
       getNotifications()
     }
   }, [id])
-
-  const path = usePathname();
 
   const searchUser = async (e) => {
     e.preventDefault()
@@ -70,6 +76,10 @@ const NavBar = () => {
     .then(response => setAllNotifications(response))
   }
 
+  if(!email){
+    return <p>Loading...</p>
+  }
+
   if (path !== "/login") {
     if(userdata === null){
       return(
@@ -87,10 +97,10 @@ const NavBar = () => {
           <div className={styles.profile}>
             <div className={styles.buttonMenu}>
               <img src={userdata?.picture} />
-              <p className={styles.nickname}>{userdata.nickname}</p>
+              <p className={styles.nickname}>{userdata?.nickname}</p>
             </div>
             <div className={styles.hiddenMenu}>
-              <Link className={styles.link} href={`home/${userdata.nickname}`}>
+              <Link className={styles.link} href={`home/${userdata?.nickname}`}>
                 <div>
                     <img src="https://www.svgrepo.com/show/377111/user.svg" />
                     <p>Profile</p>

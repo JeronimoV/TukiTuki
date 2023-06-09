@@ -25,6 +25,8 @@ const Login = () => {
 
     const [startLogin, setStartLogin] = useState(false)
 
+    const [buttonClick, setButtonClick] = useState(false)
+
     const [createUser] = useCreateUserMutation()
     const [loginUser] = useLoginUserMutation()
 
@@ -48,6 +50,7 @@ const Login = () => {
 
     const onSubmitLogin = async(e) => {
         window.localStorage.clear()
+        setButtonClick(true)
         e.preventDefault()
         const loginResult = await loginUser({
             email: loginData.email,
@@ -60,6 +63,7 @@ const Login = () => {
                 icon: "error",
                 dangerMode: true
             })
+            setButtonClick(false)
         }else{
             window.localStorage.setItem("email", loginData.email)
             const success = await swal({
@@ -74,6 +78,7 @@ const Login = () => {
     }
 
     const onSubmitRegister = async (e) => {
+        setButtonClick(true)
         window.localStorage.clear()
         e.preventDefault()
         const registerResult = await createUser({
@@ -88,6 +93,7 @@ const Login = () => {
                 icon: "error",
                 dangerMode: true
             })
+            setButtonClick(false)
         }else{
             window.localStorage.setItem("email", RegisterData.email)
             const success = await swal({
@@ -124,7 +130,7 @@ const Login = () => {
                             <input name="email" className={styles.input} value={RegisterData.email} onChange={handleInputRegister} placeholder="Email"/>
                             <input name="password" className={styles.input} value={RegisterData.password} onChange={handleInputRegister} placeholder="Password" type="password"></input>
                             <input name="age" type="number" className={styles.input} value={RegisterData.age} onChange={handleInputRegister} placeholder="age"/>
-                            <button className={styles.login}>Register</button>
+                            {buttonClick === false ? <button className={styles.login}>Register</button> : <button disabled className={styles.login}>Loading...</button>}
                         </form>
                             <button onClick={changeView} className={styles.registerButton}>I have an account</button>
                     </div>
@@ -138,7 +144,7 @@ const Login = () => {
                             <input type="checkbox"/>
                             <label>Remember me</label>
                         </div>
-                        <button className={styles.login}>Log In</button>
+                        {buttonClick === false ? <button className={styles.login}>Log In</button> : <button disabled className={styles.login}>Loading...</button>}
                     </form>
                         <button onClick={changeView} className={styles.registerButton}>I don´t have an account</button>
                 </div>}
