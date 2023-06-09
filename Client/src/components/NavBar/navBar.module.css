@@ -90,6 +90,7 @@
     align-items: center;
     transition: 0.2s;
     margin-left: 0.5vw;
+    cursor: pointer;
 }
 
 .hiddenMenu img{

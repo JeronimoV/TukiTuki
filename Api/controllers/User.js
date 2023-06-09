@@ -125,6 +125,43 @@ const getOneUser = async (req, res) => {
   }
 };
 
+const getUserReactions = async (req, res) => {
+  const { id } = req.params;
+  try {
+    const [allReactions, allFavorites] = await Promise.all([
+      Reactions.findAll({ where: { UserId: id } }),
+      Favorites.findAll({ where: { UserId: id } }),
+    ]);
+    const [allReactionsPosts, allFavoritesPosts] = await Promise.all([
+      allReactions.map(
+        async (value) => await Posts.findOne({ where: { id: value.PostId } })
+      ),
+      allFavorites.map(
+        async (value) => await Posts.findOne({ where: { id: value.PostId } })
+      ),
+    ]);
+
+    const dataToSend = [];
+
+    for (let i = 0; allReactions.length < i; i++) {
+      for (let j = 1; allReactions.length < j; j++) {
+        if (allReactions[i].PostId === allReactionsPosts[j].id) {
+          dataToSend.push({
+            reaction: allReactions[i],
+            post: allReactionsPosts[j],
+          });
+          break;
+        }
+      }
+    }
+
+    res.status(200).json(dataToSend);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error.message);
+  }
+};
+
 const isUserLogged = (req, res) => {
   const accessToken = req.headers["authorization"];
   try {

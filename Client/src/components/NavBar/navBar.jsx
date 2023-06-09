@@ -2,6 +2,7 @@
 
 import styles from "./navBar.module.css";
 import { usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import UserSearchResult from "../userSearch/userSearchCard";
@@ -31,6 +32,7 @@ const NavBar = () => {
     }
     
     const path = usePathname();
+    const router = useRouter()
 
     let actualEmail = localStorage.getItem("email")
 
@@ -76,15 +78,21 @@ const NavBar = () => {
     .then(response => setAllNotifications(response))
   }
 
-  if(!email){
-    return <p>Loading...</p>
+  const logOut = () => {
+    localStorage.clear()
+    router.push("/login")
   }
+
+  console.log(email);
 
   if (path !== "/login") {
     if(userdata === null){
       return(
         <p>Loading...</p>
       )
+    }
+    if(!email){
+      return <p>Loading...</p>
     }
     return (
       <div className={styles.menu}>
@@ -106,15 +114,17 @@ const NavBar = () => {
                     <p>Profile</p>
                 </div>
               </Link>
+              <Link className={styles.link} href={`home/edit`}>
                 <div>
                     <img src="https://www.svgrepo.com/show/377056/settings-cog.svg"/>
                     <p>Configuration</p>
                 </div>
+              </Link>
                 <div>
-                    <img src="https://www.svgrepo.com/show/377013/plus.svg"/>
-                    <p>Make a post</p>
+                    <img src="https://www.svgrepo.com/show/376788/bookmark.svg"/>
+                    <p>My Reactions</p>
                 </div>
-                <div>
+                <div onClick={logOut}>
                     <img src="https://www.svgrepo.com/show/376950/logout.svg"/>
                     <p>LogOut</p>
                 </div>
