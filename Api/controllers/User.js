@@ -133,9 +133,11 @@ const getUserReactions = async (req, res) => {
       Favorites.findAll({ where: { UserId: id } }),
     ]);
     const [allReactionsPosts, allFavoritesPosts] = await Promise.all([
-      allReactions.map(
-        async (value) => await Posts.findOne({ where: { id: value.PostId } })
-      ),
+      await Promise.all([
+        allReactions.map(
+          async (value) => await Posts.findOne({ where: { id: value.PostId } })
+        ),
+      ]),
       allFavorites.map(
         async (value) => await Posts.findOne({ where: { id: value.PostId } })
       ),
