@@ -141,6 +141,8 @@ const getUserReactions = async (req, res) => {
       ),
     ]);
 
+    res.json(allReactionsPosts);
+
     const dataToSend = [];
 
     for (let i = 0; allReactions.length > i; i++) {
