@@ -84,7 +84,6 @@ const NavBar = () => {
   const logOut = () => {
     localStorage.clear()
     dispatch(saveChatId(0))
-    dispatch(setSocket(null))
     router.push("/login")
   }
 

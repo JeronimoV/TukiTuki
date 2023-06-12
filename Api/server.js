@@ -105,6 +105,7 @@ conn
           console.log("SOY EL VALUEEEEEEEE", value.socket);
           io.to(value.socket).emit("update_chats", newChat);
         });
+        socket.disconnect();
       });
 
       socket.on("disconnect", () => {
@@ -115,7 +116,6 @@ conn
           );
           allUsers = filteredUsers;
         }
-        io.to(socket.id).emit("user disconnected");
       });
     });
   })

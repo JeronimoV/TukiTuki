@@ -9,7 +9,6 @@ import PersonalChat from "../personalChat/personalChat"
 import { useDispatch, useSelector } from "react-redux"
 import { chatSlices } from "@/globalRedux/features/slices/chatsSices"
 import {io} from "socket.io-client"
-import { setSocket } from "@/globalRedux/features/slices/chatsSices"
 
 const PageView = () => {
 
@@ -58,12 +57,8 @@ const PageView = () => {
             setActualSocket(socket)
             socket.on("connect", () => {
                 socket.emit("user_connected", {id: userData.dataToSend.id})
-                dispatch(setSocket(socket))
                 console.log("SOY EL SOCKEEEEEEET", socket.connected);
         })
-            socket.on("disconnect", () => {
-                dispatch(setSocket(null))
-            })
         return () =>{
             socket.off("connect")
         }

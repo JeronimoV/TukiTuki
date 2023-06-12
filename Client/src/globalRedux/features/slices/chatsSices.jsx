@@ -4,13 +4,17 @@ export const chatSlices = createSlice({
     name:"chatSlices",
     initialState:{
         chatId: 0,
-        socket : null
+        chatStatus: false,
+        socket: ""
     },
     reducers:{
         saveChatId: (state, action) => {
             state.chatId = action.payload
         },
-        setSocket: (state, action) => {
+        setChatStatus:(state,action) => {
+            state.chatStatus = action.payload
+        },
+        setSocket: (state,action) => {
             state.socket = action.payload
         }
     }
@@ -18,5 +22,5 @@ export const chatSlices = createSlice({
 
 const saveChatData = chatSlices.reducer
 
-export const {saveChatId, setSocket} = chatSlices.actions
+export const {saveChatId, setSocket, setChatStatus} = chatSlices.actions
 export default saveChatData

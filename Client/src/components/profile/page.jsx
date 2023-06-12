@@ -61,7 +61,8 @@ const ProfileView = () => {
             getChats: true
         }
         newSocket.emit("create_chat", dataToSend)
-        router.push("home")}
+        router.push("home")
+    }
     }
 
     return(
