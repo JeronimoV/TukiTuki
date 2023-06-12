@@ -6,9 +6,10 @@ import Posts from "../Posts/posts"
 import styles from "./pageView.module.css"
 import { useEffect, useState } from "react"
 import PersonalChat from "../personalChat/personalChat"
-import { useSelector } from "react-redux"
+import { useDispatch, useSelector } from "react-redux"
 import { chatSlices } from "@/globalRedux/features/slices/chatsSices"
 import {io} from "socket.io-client"
+import { setSocket } from "@/globalRedux/features/slices/chatsSices"
 
 const PageView = () => {
 
@@ -24,6 +25,7 @@ const PageView = () => {
 
     const actualChatId = useSelector(value => value.saveChat.chatId)
     const chatStatus = useSelector(value => value.saveChat.chatStatus)
+    const dispatch = useDispatch()
 
     useEffect(() => {
         setChatId(actualChatId)
@@ -50,13 +52,18 @@ const PageView = () => {
 
     useEffect(() => {
         if(userData && userData.dataToSend){
+            console.log("SOY EL ID",userData.dataToSend.id);
             localStorage.setItem("id", userData.dataToSend.id)
             const socket = io("https://tukituki-backend-2f9e.onrender.com")
             setActualSocket(socket)
             socket.on("connect", () => {
                 socket.emit("user_connected", {id: userData.dataToSend.id})
+                dispatch(setSocket(socket))
                 console.log("SOY EL SOCKEEEEEEET", socket.connected);
         })
+            socket.on("disconnect", () => {
+                dispatch(setSocket(null))
+            })
         return () =>{
             socket.off("connect")
         }
@@ -84,7 +91,7 @@ const PageView = () => {
         <div className={styles.container}>
             <div className={styles.chat}>
                 {showChats ? <Chats data={userData.dataToSend.id} socket={actualSocket}/> : null}
-                {chatId === 0 || !chatId ? null :
+                {chatId === 0 || !chatId || !userData.dataToSend.id ? null :
                     <PersonalChat chatId={chatId} userId={userData.dataToSend.id} socket={actualSocket}/>
                 }  
             </div>

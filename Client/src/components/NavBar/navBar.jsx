@@ -7,6 +7,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import UserSearchResult from "../userSearch/userSearchCard";
 import FriendRequestCard from "../friendRequestCard/friendRequestCard";
+import { useDispatch, useSelector } from "react-redux";
+import { saveChatId, setSocket } from "@/globalRedux/features/slices/chatsSices";
 
 const NavBar = () => {
 
@@ -33,6 +35,7 @@ const NavBar = () => {
     
     const path = usePathname();
     const router = useRouter()
+    const dispatch = useDispatch()
 
     let actualEmail = localStorage.getItem("email")
 
@@ -80,6 +83,8 @@ const NavBar = () => {
 
   const logOut = () => {
     localStorage.clear()
+    dispatch(saveChatId(0))
+    dispatch(setSocket(null))
     router.push("/login")
   }
 

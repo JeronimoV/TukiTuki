@@ -4,6 +4,8 @@ import { useEffect, useState } from "react"
 import { useGetChatFriendInfoQuery } from "@/globalRedux/features/querys/chatQuery"
 
 const PersonalChat = ({chatId, userId, socket}) => {
+
+    console.log("SOY EL SOCKET", socket);
     
     const [userMessage, setUserMessage] = useState({
         message: ""
@@ -23,6 +25,7 @@ const PersonalChat = ({chatId, userId, socket}) => {
     useEffect(() => {
         socket.on("update_message", (event) => {
             console.log("SOY EL MENSAJEEEEEEEEEEEEEE", messages);
+            console.log("SOY EL EVENT",event);
             if(messages !== null){
                 const oldMessage = [...messages]
                 oldMessage.unshift(event)
