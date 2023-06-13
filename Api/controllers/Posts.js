@@ -28,7 +28,7 @@ const getFriendsPosts = async (req, res) => {
     await Promise.all(
       actualUser.map(async (value) =>
         allPosts.push(
-          Posts.findAll({
+          await Posts.findAll({
             where: { UserId: value.FriendId },
             include: [{ model: Reactions }, { model: Favorites }],
           })
