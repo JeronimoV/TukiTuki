@@ -88,7 +88,7 @@ const Posts = ({data}) => {
                     <button className={styles.ButtonForPost}><img className={styles.inputImage} src="https://www.svgrepo.com/show/377013/plus.svg"/>Post</button>
                 </div>
             </form>
-            {friendsPosts > 0 ?
+            {friendsPosts && friendsPosts.length > 0 ?
                 friendsPosts.map(value => 
                         <Publications data={value}/>
                 ):  <div>

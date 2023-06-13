@@ -21,12 +21,14 @@ const getFriendsPosts = async (req, res) => {
         "You doesnt have friends! To see publications of your friends, you have to had friends :P"
       );
 
+    console.log(actualUser);
+
     const allPosts = [];
 
     await Promise.all(
       actualUser.map(async (value) =>
         allPosts.push(
-          await Posts.findAll({
+          Posts.findAll({
             where: { UserId: value.FriendId },
             include: [{ model: Reactions }, { model: Favorites }],
           })
