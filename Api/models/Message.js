@@ -11,9 +11,5 @@ module.exports = (sequelize) => {
     message: {
       type: DataTypes.STRING(),
     },
-    seen: {
-      type: DataTypes.ENUM("seen", "notSeen"),
-      defaultValue: "notSeen",
-    },
   });
 };

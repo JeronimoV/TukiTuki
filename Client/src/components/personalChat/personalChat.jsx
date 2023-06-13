@@ -30,7 +30,7 @@ const PersonalChat = ({chatId, userId, socket}) => {
                 "Content-Type": "application/json",
             },
             body: JSON.stringify(data),
-        }).then(response => console.log(response)).catch(err => console.log(err))
+        }).then(response => response.json()).then(response => setFriendData(response)).catch(err => console.log(err))
     }
 
     useEffect(() => {
