@@ -10,7 +10,7 @@ const {
 
 app.get("/:chatId", getChatInfo);
 
-app.get("/friend", getChatParticipantInfo);
+app.post("/friend", getChatParticipantInfo);
 
 app.get("/allchats/:userId", getAllUserChats);
 
