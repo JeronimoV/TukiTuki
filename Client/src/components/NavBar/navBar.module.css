@@ -27,8 +27,6 @@
     display: inline-block;
     margin-right: 5vw;
     background-color: white;
-    padding-left: 0.3vw;
-    padding-right: 1vw;
     border-radius: 1vw;
     width: 2.5vw;
     height: 2.5vw;
@@ -41,8 +39,8 @@
 
 .buttonMenu{
     display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 0px;
+    transition: margin-left 1s;
 }
 
 .nickname{
@@ -51,17 +49,19 @@
     font-weight: bold;
     font-size: 0.8vw;
     max-width: 0px;
+    max-height: 0px;
     width: 0px;
     opacity: 0;
     transition: width 1s, max-width 1s, opacity 1s, visibility 1s;
+    white-space: pre
 }
 
-.profile img{
+.profilePhoto{
     width: 2vw;
     height: 2vw;
-    margin: auto;
-    margin-left: 0.8vw;
     border-radius: 1vw;
+    object-fit: cover;
+    margin: 0.2vw;
 }
 
 .hiddenMenu{
@@ -73,8 +73,8 @@
     text-align: center;
     opacity: 0;
     transition:max-height 1s, opacity 1s ;
-    margin: 0;
     color: #7b1579;
+    margin-left: 1vw;
 }
 
 .hiddenMenu p{
@@ -111,7 +111,7 @@
 
 .profile:hover{
     height: 11vw;
-    width: 11vw;
+    width: 10vw;
 }
 
 .profile:hover > .buttonMenu > .nickname{
@@ -119,6 +119,10 @@
     width:10vw;
     opacity: 1;
     visibility:visible
+}
+
+.profile:hover > .buttonMenu{
+    margin-left: 1vw;
 }
 
 .results{

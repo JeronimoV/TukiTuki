@@ -11,7 +11,7 @@ const searchBar = async (req, res) => {
       where: {
         [Op.or]: [
           { email: { [Op.like]: `%${search}%` } },
-          { nickname: { [Op.like]: `${search}` } },
+          { nickname: { [Op.like]: `%${search}%` } },
         ],
       },
     });

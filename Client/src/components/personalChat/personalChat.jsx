@@ -22,6 +22,8 @@ const PersonalChat = ({chatId, userId, socket}) => {
     const {data: friendData, isLoading, isError, refetch} = useGetChatFriendInfoQuery(chatId)
 
 
+    console.log(friendData);
+
     useEffect(() => {
         socket.on("update_message", (event) => {
             console.log("SOY EL MENSAJEEEEEEEEEEEEEE", messages);
@@ -81,7 +83,7 @@ const PersonalChat = ({chatId, userId, socket}) => {
 
     return(
         <div className={styles.container}>
-            <div>
+            <div className={styles.container2}>
                 <div className={styles.header}>
                     <img className={styles.image} src={friendData.picture}/>
                     <p className={styles.friendName}>{friendData.nickname}</p>

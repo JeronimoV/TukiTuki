@@ -7,6 +7,7 @@ import styles from "./profile.module.css"
 import Publications from "../Publications/publications";
 import { useEffect, useState } from "react";
 import {io} from "socket.io-client"
+import swal from "sweetalert";
 
 const ProfileView = () => {
 
@@ -61,8 +62,29 @@ const ProfileView = () => {
             getChats: true
         }
         newSocket.emit("create_chat", dataToSend)
-        router.push("home")
+        window.location.href = "/home"
     }
+    }
+
+    const addFriend = async() => {
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/friends/send`, {
+            method: "POST", // or 'PUT'
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                UserApplicant: id,
+                UserRequested: userData.id,
+            }),
+        }).then(() => swal({
+            title: "Friend request sent!",
+            text: "The friend request was sent with success!",
+            icon: "success"
+        })).catch(() => swal({
+            title: "Friend request not sent...",
+            text: "The friend request was not sent!",
+            icon: "error"
+        }))
     }
 
     return(
@@ -81,7 +103,7 @@ const ProfileView = () => {
                 </div>
                 <div className={styles.buttons}>
                 {id !== userData.id ?
-                    <div>{isFriend ? null :<button className={styles.button}>Add friend</button>}<button className={styles.button} onClick={startChat}>Start chat</button></div> : <button className={styles.button} onClick={() => router.push("/home/edit")}>Edit profile</button>}
+                    <div className={styles.buttonAlign}>{isFriend ? null :<button className={styles.button} onClick={addFriend}>Add friend</button>}<button className={styles.button} onClick={startChat}>Start chat</button></div> : <button className={styles.button} onClick={() => router.push("/home/edit")}>Edit profile</button>}
                 </div>
             </div>
                 {userData.posts.length > 0 ? <div className={styles.posts}>

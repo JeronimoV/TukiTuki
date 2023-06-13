@@ -72,7 +72,7 @@ const getChatInfo = async (req, res) => {
 };
 
 const getChatParticipantInfo = async (req, res) => {
-  const { chatId } = req.params;
+  const { chatId, userId } = req.params;
   try {
     if (!chatId) {
       throw new Error("You need to send some data!");
@@ -84,11 +84,19 @@ const getChatParticipantInfo = async (req, res) => {
       throw new Error("This chat doesnt exist!");
     }
 
-    const actualFriend = await User.findOne({
-      where: { id: actualChat.FriendId },
-    });
+    if (userId === actualChat.FriendId) {
+      const actualFriend = await User.findOne({
+        where: { id: actualChat.UserId },
+      });
 
-    res.status(200).json(actualFriend);
+      res.status(200).json(actualFriend);
+    } else {
+      const actualFriend = await User.findOne({
+        where: { id: actualChat.FriendId },
+      });
+
+      res.status(200).json(actualFriend);
+    }
   } catch (error) {
     console.log(error);
     res.status(400).json(error.message);

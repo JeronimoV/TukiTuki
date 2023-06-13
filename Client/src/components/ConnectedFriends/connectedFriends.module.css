@@ -16,3 +16,11 @@
     justify-content: center;
     align-items: center;
 }
+
+.title{
+    font-size: 2vw;
+}
+
+.error{
+    font-size: 1vw;
+}

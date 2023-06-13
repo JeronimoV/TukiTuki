@@ -87,6 +87,9 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background-color: white;
+    border-radius: 0.5vw;
+    margin: 1vw;
 }
 
 .commentText{
@@ -95,6 +98,8 @@
     height: fit-content;
     border-radius: 0.2vw;
     border: none;
+    background-color: #D9D9D9;
+    margin: 1vw;
 }
 
 .inputCommentImage{
@@ -149,5 +154,28 @@
     height: 2vw;
     width: 10vw;
     border-radius: 0.2vw;
+    cursor: pointer;
+}
+
+.postImage{
+    height: 25vw;
+    object-fit: cover;
+    margin: 1vw;
+}
+
+.imageContainer{
+    display: flex;
+}
+
+.closeImage{
+    background-color: red;
+    color: white;
+    font-size: 1vw;
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5vw;
     cursor: pointer;
 }

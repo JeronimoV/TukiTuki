@@ -12,6 +12,10 @@ import {io} from "socket.io-client"
 
 const PageView = () => {
 
+    window.addEventListener('popstate', function (event) {
+        window.location.reload(); // Recargar la página cuando se utiliza el botón de retroceso del navegador
+      });
+
     const [showChats, setShowChats] = useState(false)
 
     const [chatId, setChatId] = useState(null)
@@ -73,7 +77,7 @@ const PageView = () => {
         }
     }
 
-    console.log(userData);
+    console.log(actualSocket);
 
     if(!userData){
         return <p>Loading...</p>

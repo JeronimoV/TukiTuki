@@ -1,7 +1,7 @@
 .container{
     background-color: #7b1579;
     height: fit-content;
-    min-height: 10vh;
+    min-height: 5vw;
     max-height: 80vh;
     padding: 1vw;
     padding-top: 0;
@@ -30,4 +30,5 @@
     color: white;
     margin: 0;
     text-align: center;
+    font-size: 1vw;
 }

@@ -3,6 +3,9 @@ import { useGetFriendsPostsQuery } from "@/globalRedux/features/querys/postsQuer
 import styles from "./posts.module.css"
 import { useState } from "react"
 import swal from "sweetalert"
+import { storage } from "@/utils/firebase"
+import {ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { v4 } from "uuid"
 
 const Posts = ({data}) => {
 
@@ -12,11 +15,15 @@ const Posts = ({data}) => {
         userId: data
     })
 
+    const [images, setImages] = useState("")
+
     const {data: friendsPosts, isLoading, isError, error} = useGetFriendsPostsQuery(data)
 
     if(isLoading){
         return( <p>Loading...</p>)
     }
+
+    console.log(images);
 
     const makePost = async (e) => {
         e.preventDefault()
@@ -25,12 +32,18 @@ const Posts = ({data}) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify(newPost),
+            body: JSON.stringify({
+                textContent: newPost.textContent,
+                imageContent: images,
+                userId: newPost.userId
+            }),
         }).then(() => setNewPost({
             textContent: "",
             imageContent: "",
             userId: data
-        })).then(() => swal({
+        }))
+        .then(() => setImages(""))
+        .then(() => swal({
             title: "Action with success!",
             text: "Your publication was created!",
             icon: "success"
@@ -41,17 +54,30 @@ const Posts = ({data}) => {
         setNewPost({...newPost, [e.target.name]: e.target.value})
     }
 
+    const uploadImage = async (e) => {
+        const fileName = e.target.files[0]
+        const imageRef = ref(storage, `posts/${fileName.name + v4()}`)
+        await uploadBytes(imageRef, fileName).then(async (snapshot) => {
+            await getDownloadURL(snapshot.ref).then(response => setImages(response))
+        })
+    }
+
+    const deleteImage = () => {
+        setImages("")
+    }
+
     console.log(friendsPosts);
 
     return(
         <div className={styles.container}>
             <form className={styles.createPost} onSubmit={makePost}>
                 <input className={styles.textInput} placeholder="What are you thinking?" value={newPost.textContent} name="textContent" onChange={handleInput}/>
+                {images !== "" ? <div className={styles.imageContainer}><p className={styles.closeImage} onClick={deleteImage}>X</p><img className={styles.postImage} src={images}/></div> : null}
                 <div className={styles.postButton}>
                     <label className={styles.fileButton}>
                         <img className={styles.inputImage} src="https://www.svgrepo.com/show/376769/attachment.svg"/>
                         Select a Image
-                        <input className={styles.file} type="file"/>
+                        <input onChange={uploadImage} className={styles.file} type="file"/>
                     </label>
                     <button className={styles.ButtonForPost}><img className={styles.inputImage} src="https://www.svgrepo.com/show/377013/plus.svg"/>Post</button>
                 </div>
@@ -60,8 +86,8 @@ const Posts = ({data}) => {
                 friendsPosts.map(value => 
                         <Publications data={value}/>
                 ):  <div>
-                        <h3>Oops! Something goes wrong!</h3>
-                        <p>{error.data}</p>
+                        <h3 className={styles.errorTitle}>Oops! Something goes wrong!</h3>
+                        <p className={styles.errorData}>{error.data}</p>
                     </div>
             }
             

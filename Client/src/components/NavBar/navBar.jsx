@@ -101,14 +101,14 @@ const NavBar = () => {
     return (
       <div className={styles.menu}>
         <div className={styles.container}>
-          <Link className={styles.link} href="/home"><h3>TukiTuki</h3></Link>
+          <a className={styles.link} href="/home"><h3>TukiTuki</h3></a>
           <form onSubmit={searchUser} className={styles.searchBarContainer}>
             <input onChange={handleSearch} value={searchInfo} placeholder="Search user on TukiTuki" className={styles.searchBar}/>
             <button>Search</button>
           </form>
           <div className={styles.profile}>
             <div className={styles.buttonMenu}>
-              <img src={userdata?.picture} />
+              <img className={styles.profilePhoto} src={userdata?.picture} />
               <p className={styles.nickname}>{userdata?.nickname}</p>
             </div>
             <div className={styles.hiddenMenu}>

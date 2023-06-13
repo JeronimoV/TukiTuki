@@ -39,6 +39,29 @@
     display: none;
 }
 
+.postImage{
+    height: 25vw;
+    object-fit: cover;
+    margin: 1vw;
+}
+
+.imageContainer{
+    display: flex;
+}
+
+.closeImage{
+    background-color: red;
+    color: white;
+    font-size: 1vw;
+    width: 2vw;
+    height: 2vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 0.5vw;
+    cursor: pointer;
+}
+
 .fileButton{
     background-color: #7b1579;
     height: 2vw;
@@ -70,4 +93,13 @@
 .inputImage{
     height: 1.1vw;
     filter: invert(100%);
+}
+
+.errorTitle{
+    font-size: 2vw;
+    margin: 0;
+}
+
+.errorData{
+    font-size: 0.8vw;
 }

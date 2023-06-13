@@ -64,6 +64,7 @@ const Edit = () => {
     const handleSubmit = async(e) => {
         e.preventDefault()
         const allTheData = {
+            id: id,
             nickname: profile.nickname,
             email:  profile.email,
             description: profile.description,

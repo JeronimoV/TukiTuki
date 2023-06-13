@@ -4,6 +4,9 @@ import styles from "./publications.module.css"
 import { useGetUserWithIdQuery } from "@/globalRedux/features/querys/usersQuery"
 import { useEffect, useState } from "react"
 import swal from "sweetalert"
+import { storage } from "@/utils/firebase"
+import {ref, uploadBytes, getDownloadURL } from "firebase/storage"
+import { v4 } from "uuid"
 
 const Publications = ({data}) => {
 
@@ -29,6 +32,8 @@ const Publications = ({data}) => {
     const [commentPage, setCommentPage] = useState(0)
     const [showComments, setShowComments] = useState(false)
 
+    const [images, setImages] = useState("")
+
     const reactionsHandler = () =>{
         const Like = []
         const Dislike = []
@@ -51,13 +56,7 @@ const Publications = ({data}) => {
                 },
                 body: JSON.stringify({postId: data.id, page: commentPage}),
             }).then(response => response.json()).then(response => {
-                if(allComments.length === 0){
                     setAllComments(response)
-                }else{
-                    const oldComments = [...allComments]
-                    const newCommentsArray = oldComments.concat(response)
-                    setAllComments(newCommentsArray)
-                }
             })
         }
     }
@@ -127,7 +126,7 @@ const Publications = ({data}) => {
             headers: {
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({userId: newComment.userId, postId:newComment.postId, textContent:newComment.textContent, imageContent:newComment.imageContent}),
+            body: JSON.stringify({userId: newComment.userId, postId:newComment.postId, textContent:newComment.textContent, imageContent:images}),
         }).then(() => swal({
             title: "Action Completed!",
             text: "Comment was posted!",
@@ -177,6 +176,18 @@ const Publications = ({data}) => {
         }
     }
 
+    const uploadImage = async (e) => {
+        const fileName = e.target.files[0]
+        const imageRef = ref(storage, `posts/${fileName.name + v4()}`)
+        await uploadBytes(imageRef, fileName).then(async (snapshot) => {
+            await getDownloadURL(snapshot.ref).then(response => setImages(response))
+        })
+    }
+
+    const deleteImage = () => {
+        setImages("")
+    }
+
     if(!allComments){
         return <p>Loading...</p>
     }
@@ -192,7 +203,7 @@ const Publications = ({data}) => {
             <div className={styles.content}>
                 <p>{data.textContent}</p>
             </div> : null}
-            {data.imageContent ? <Image className={styles.image} src={data.imageContent} width={468} height={346} priority quality={100}/>: null}
+            {data.imageContent ? <img className={styles.image} src={data.imageContent}/>: null}
             <div className={styles.reactions}>
                 {reactions === null ? 
                 <div className={styles.like}>
@@ -249,11 +260,12 @@ const Publications = ({data}) => {
                 <div>
                     <form onSubmit={createComment} className={styles.createComment}>
                         <input placeholder="What are you thinking about that?" className={styles.commentText} name="textContent" value={newComment.textContent} onChange={handlerNewComment} type="text"/>
+                        {images !== "" ? <div className={styles.imageContainer}><p className={styles.closeImage} onClick={deleteImage}>X</p><img className={styles.postImage} src={images}/></div> : null}
                         <div className={styles.buttonsContainer}>
                             <label className={styles.inputFileComment}>
                                 <img className={styles.inputCommentImage} src="https://www.svgrepo.com/show/376769/attachment.svg"/>
                                 Select a Image
-                                <input type="file"/>
+                                <input onChange={uploadImage} type="file"/>
                             </label>
                             <button className={styles.commentButton} type="submit">Comment</button>
                         </div>
