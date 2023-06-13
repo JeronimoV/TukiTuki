@@ -20,7 +20,7 @@ const Posts = ({data}) => {
     const [friendsPosts, setFriendsPosts] = useState(null)
 
     const getPosts = async () => {
-        await fetch(`https://tukituki-backend-2f9e.onrender.com/posts/friends/${data}`).then(response => response.json()).then(response => setFriendsPosts(response))
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/posts/friends/${data}`).then(response => response.json()).then(response => setFriendsPosts([response]))
     }
 
     useEffect(() => {

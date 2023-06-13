@@ -38,6 +38,8 @@ const getFriendsPosts = async (req, res) => {
 
     const dataToSend = allPosts[0];
 
+    console.log("DATATOSEND", dataToSend);
+
     dataToSend.sort((a, b) => {
       if (a.id < b.id) {
         return 1;
