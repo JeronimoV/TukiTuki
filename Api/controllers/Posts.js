@@ -44,6 +44,8 @@ const getFriendsPosts = async (req, res) => {
       }
     });
 
+    console.log(dataToSend);
+
     res.status(200).json(dataToSend);
   } catch (error) {
     console.log(error);

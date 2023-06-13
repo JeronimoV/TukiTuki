@@ -1,7 +1,7 @@
 import Publications from "../Publications/publications"
 import { useGetFriendsPostsQuery } from "@/globalRedux/features/querys/postsQuery"
 import styles from "./posts.module.css"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import swal from "sweetalert"
 import { storage } from "@/utils/firebase"
 import {ref, uploadBytes, getDownloadURL } from "firebase/storage"
@@ -17,11 +17,17 @@ const Posts = ({data}) => {
 
     const [images, setImages] = useState("")
 
-    const {data: friendsPosts, isLoading, isError, error} = useGetFriendsPostsQuery(data)
+    const [friendsPosts, setFriendsPosts] = useState(null)
 
-    if(isLoading){
-        return( <p>Loading...</p>)
+    const getPosts = async () => {
+        await fetch(`https://tukituki-backend-2f9e.onrender.com/posts/friends/${data}`).then(response => response.json()).then(response => setFriendsPosts(response))
     }
+
+    useEffect(() => {
+        if(data){
+            getPosts()
+        }
+    }, [data])
 
     console.log(images);
 
@@ -82,12 +88,11 @@ const Posts = ({data}) => {
                     <button className={styles.ButtonForPost}><img className={styles.inputImage} src="https://www.svgrepo.com/show/377013/plus.svg"/>Post</button>
                 </div>
             </form>
-            {!isError ?
+            {friendsPosts > 0 ?
                 friendsPosts.map(value => 
                         <Publications data={value}/>
                 ):  <div>
                         <h3 className={styles.errorTitle}>Oops! Something goes wrong!</h3>
-                        <p className={styles.errorData}>{error.data}</p>
                     </div>
             }
             
