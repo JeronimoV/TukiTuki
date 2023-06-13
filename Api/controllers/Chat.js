@@ -72,7 +72,7 @@ const getChatInfo = async (req, res) => {
 };
 
 const getChatParticipantInfo = async (req, res) => {
-  const { chatId, userId } = req.params;
+  const { chatId, userId } = req.body;
   try {
     if (!chatId) {
       throw new Error("You need to send some data!");

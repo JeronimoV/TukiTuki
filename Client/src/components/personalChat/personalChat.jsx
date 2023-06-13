@@ -19,7 +19,7 @@ const PersonalChat = ({chatId, userId, socket}) => {
         .then(response => setMessages(response))
     }
 
-    const {data: friendData, isLoading, isError, refetch} = useGetChatFriendInfoQuery(chatId)
+    const {data: friendData, isLoading, isError, refetch} = useGetChatFriendInfoQuery({chatId, userId})
 
 
     console.log(friendData);
