@@ -36,7 +36,7 @@ const getFriendsPosts = async (req, res) => {
       )
     );
 
-    const dataToSend = allPosts;
+    const dataToSend = allPosts.flat();
 
     console.log("DATATOSEND", dataToSend);
 
@@ -47,8 +47,6 @@ const getFriendsPosts = async (req, res) => {
         return -1;
       }
     });
-
-    console.log(dataToSend);
 
     res.status(200).json(dataToSend);
   } catch (error) {
