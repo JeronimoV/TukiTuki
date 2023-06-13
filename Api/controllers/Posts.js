@@ -36,7 +36,7 @@ const getFriendsPosts = async (req, res) => {
       )
     );
 
-    const dataToSend = allPosts[0];
+    const dataToSend = allPosts;
 
     console.log("DATATOSEND", dataToSend);
 
