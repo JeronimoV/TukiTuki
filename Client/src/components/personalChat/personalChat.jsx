@@ -13,16 +13,25 @@ const PersonalChat = ({chatId, userId, socket}) => {
     
     const [messages, setMessages] = useState(null)
 
+    const [friendData, setFriendData] = useState(null)
+
+    console.log(friendData);
+
     const getChatMessages = async() => {
         await fetch(`https://tukituki-backend-2f9e.onrender.com/chat/message/${chatId}`)
         .then(response => response.json())
         .then(response => setMessages(response))
     }
-
-    const {data: friendData, isLoading, isError, refetch} = useGetChatFriendInfoQuery({chatId, userId})
-
-
-    console.log(friendData);
+    
+    const getChatInfo = async (data) => {
+        await fetch("https://tukituki-backend-2f9e.onrender.com/chat/friend", {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(data),
+        }).then(response => console.log(response)).catch(err => console.log(err))
+    }
 
     useEffect(() => {
         socket.on("update_message", (event) => {
@@ -43,11 +52,11 @@ const PersonalChat = ({chatId, userId, socket}) => {
     }, [messages])
 
     useEffect(() => {
-        if(chatId){
+        if(chatId && userId){
             getChatMessages()
-            refetch()
+            getChatInfo({chatId, userId})
         }
-    }, [chatId])
+    }, [chatId, userId])
 
     const sendMessage = (event) => {
         event.preventDefault()
@@ -67,19 +76,11 @@ const PersonalChat = ({chatId, userId, socket}) => {
         setUserMessage({...userMessage, [event.target.name]: event.target.value})
     }
 
-    if(messages === null || !messages){
+    if(messages === null || !messages || friendData === null){
         return <p>Loading...</p>
     }
 
     console.log(friendData);
-
-    if(isLoading){
-        return <p>Loading...</p>
-    }
-
-    if(isError){
-        return <p>Error...</p>
-    }
 
     return(
         <div className={styles.container}>

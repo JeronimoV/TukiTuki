@@ -7,11 +7,12 @@ export const Chat = createApi({
     /*getUserId: builder.query({
       query: (id) => `/users`,
     }),*/
-    getChatInfo: builder.query({
-        query: (chatId) => `chat/${chatId}`,
-      }),
-    getChatFriendInfo: builder.query({
-      query: (chatId) => `chat/friend/${chatId}`,
+    getChatInfo: builder.mutation({
+      query: (data) => ({
+          url: `chat/friend`,
+          method: 'POST',
+          body: data,
+    }),
     }),
     getUserChats: builder.query({
       query: (userId) => `chat/allchats/${userId}`,
